@@ -1,6 +1,8 @@
-package com.likelionking.LikeLionKingSbb.article.repository;
+package com.likelionking.LikeLionKingSbb.comment.repository;
 
 import com.likelionking.LikeLionKingSbb.article.domain.Article;
+import com.likelionking.LikeLionKingSbb.article.repository.ArticleRepository;
+import com.likelionking.LikeLionKingSbb.comment.domain.Comment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// 통합테스트(모든 빈)
 @SpringBootTest
-class ArticleRepositoryTest {
+class CommentRepositoryTest {
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @BeforeEach
     void beforeEach() {
@@ -30,11 +34,12 @@ class ArticleRepositoryTest {
     }
 
     @Test
-    public void save() {
-        Article article1 = Article.builder()
-                .title("제목3")
-                .content("내용3")
+    void save() {
+        Article article = articleRepository.findById(1L).orElse(null);
+        Comment comment = Comment.builder()
+                .content("답변1")
+                .article(article)
                 .build();
-        articleRepository.save(article1);
+        commentRepository.save(comment);
     }
 }
