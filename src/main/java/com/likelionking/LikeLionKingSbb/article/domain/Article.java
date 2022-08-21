@@ -2,8 +2,8 @@ package com.likelionking.LikeLionKingSbb.article.domain;
 
 import com.likelionking.LikeLionKingSbb.comment.domain.Comment;
 import com.likelionking.LikeLionKingSbb.common.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +13,10 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@Setter     // TODO: entity setter 대신 builder 사용하기(삭제)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article extends BaseEntity {
     @Column(length = 200)
     private String title;
