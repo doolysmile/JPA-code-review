@@ -29,6 +29,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// 서버 자동 reload
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// thymeleaf 엔진에 layout 적용
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 tasks.named('test') {
