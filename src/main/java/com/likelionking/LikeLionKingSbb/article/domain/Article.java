@@ -1,11 +1,15 @@
 package com.likelionking.LikeLionKingSbb.article.domain;
 
+import com.likelionking.LikeLionKingSbb.comment.domain.Comment;
 import com.likelionking.LikeLionKingSbb.common.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,4 +20,7 @@ public class Article extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Comment> commentList;
 }
