@@ -1,11 +1,13 @@
 package com.study.blog.domain.article;
 
+import com.study.blog.domain.comment.Comment;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +23,7 @@ public class Article {
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Comment> commentList;
 }
