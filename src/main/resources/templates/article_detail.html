@@ -20,10 +20,11 @@
             <div th:text="${comment.content}"></div>
         </div>
     </div>
-    <form action=""></form>
-    <div class="border-top border-3 py-3 d-flex ">
-<!--        어려운 문법-->
-        <textarea class="form-control" id="content" rows="4"></textarea>
-        <input type="submit" value="등록" class="btn btn-primary mx-2">
-    </div>
+    <form th:action="@{|/comment/write/${article.id}|}" th:object="${commentForm}" method="post">
+        <div class="border-top border-3 py-3 d-flex ">
+            <!--        어려운 문법-->
+            <textarea name="content" class="form-control" rows="4"></textarea>
+            <input type="submit" value="등록" class="btn btn-primary mx-2">
+        </div>
+    </form>
 </div>
