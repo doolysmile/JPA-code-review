@@ -1,6 +1,6 @@
-package com.study.blog.domain.comment;
+package com.study.blog.domain.comment.domain;
 
-import com.study.blog.domain.article.Article;
+import com.study.blog.domain.article.domain.Article;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

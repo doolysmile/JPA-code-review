@@ -1,9 +1,8 @@
-package com.study.blog.domain.article;
+package com.study.blog.domain.article.domain;
 
-import com.study.blog.domain.comment.Comment;
+import com.study.blog.domain.comment.domain.Comment;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
