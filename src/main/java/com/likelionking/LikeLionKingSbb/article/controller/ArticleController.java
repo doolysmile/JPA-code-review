@@ -1,6 +1,7 @@
 package com.likelionking.LikeLionKingSbb.article.controller;
 
 import com.likelionking.LikeLionKingSbb.article.domain.Article;
+import com.likelionking.LikeLionKingSbb.article.dto.ArticleForm;
 import com.likelionking.LikeLionKingSbb.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleController {
     private final ArticleService articleService;
+
+    // 게시글 등록폼
+    @GetMapping("/write")
+    public String create(ArticleForm articleForm) {
+        return "article_form";
+    }
 
     // 게시글 리스트 조회
     @GetMapping("/list")

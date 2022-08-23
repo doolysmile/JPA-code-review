@@ -5,6 +5,15 @@
     font-style: normal;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+textarea {
+    resize: none;
+}
+
 html > body {
     font-family: 'GmarketSansMedium';
 }
