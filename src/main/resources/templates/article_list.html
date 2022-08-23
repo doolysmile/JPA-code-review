@@ -1,0 +1,33 @@
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://thymeleaf.org"
+        layout:decorate="~{layout}">
+
+<div layout:fragment="content" class="container my-3">
+    <table class="table text-center">
+        <colgroup>
+            <col>
+            <col width="50%">
+        </colgroup>
+        <thead class="table-dark">
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article : ${articleList}">
+            <td th:text="${article.id}"></td>
+            <td class="text-start">
+                <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}"></a>
+                <span class="text-danger small ms-2" th:if="${#lists.size(article.commentList) > 0}"
+                      th:text="${#lists.size(article.commentList)}">
+                </span>
+            </td>
+            <td th:text="${#temporals.format(article.createDate, 'yy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>
