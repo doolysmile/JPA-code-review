@@ -1,7 +1,6 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-
-<div class="container my-3">
+<!--레이아웃으로 사용할 템플릿 설정-->
+<html layout:decorate="~{layout}"></html>
+<div layout:frament="content" class="container my-3">
     <div class="border-bottom my-3 pb-2">
         <h2 class="" th:text="${article.title}"></h2>
         <span style="font-size: 15px" class="badge rounded-pill bg-light text-dark" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd hh:mm')}"></span>

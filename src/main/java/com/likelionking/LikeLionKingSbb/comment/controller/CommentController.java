@@ -29,7 +29,6 @@ public class CommentController {
 
         commentService.save(commentForm, article);
 
-//        return "redirect:/article/detail/%d".formatted(articleId);
-        return "redirect:/article/list";
+        return "redirect:/article/detail/%d".formatted(articleId);
     }
 }

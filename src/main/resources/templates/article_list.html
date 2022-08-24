@@ -1,7 +1,6 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+<html layout:decorate="~{layout}"></html>
 
-<div class="container my-3">
+<div layout:fragment="content" class="container my-3">
     <div class="mb-3 d-flex justify-content-end">
         <a class="btn btn-outline-dark" th:href="@{/article/write}" th:text="|글 작성|"></a>
     </div>
