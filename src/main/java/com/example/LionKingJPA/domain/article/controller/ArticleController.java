@@ -6,8 +6,10 @@ import com.example.LionKingJPA.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -18,22 +20,22 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("/write")
-    public String create(Model model){
+    public String articleCreate(ArticleDto articleDto){
 
-        return "article/article_form";
+        return "article_form";
     }
 
     @PostMapping("/write")
-    public String create(ArticleDto articleDto, Model model){
+    public String create(Model model, @Valid ArticleDto articleDto, BindingResult bindingResult){
 //        System.out.println("articleDto = " + articleDto.getContent());
         articleService.create(articleDto);
-        return "article/article_form";
+        return "article_form";
     }
 
     @GetMapping("/detail/{id}")
     public String articleDetail(@PathVariable("id") Long id, Model model){
         model.addAttribute("article", articleService.findById(id));
-        return "article/article_detail";
+        return "article_detail";
     }
 
     @GetMapping("/list")
@@ -43,7 +45,7 @@ public class ArticleController {
         System.out.println("articleList.get(1).getContent() = " + articleList.get(1).getContent());
         model.addAttribute("articleList", articleService.findAll());
 
-        return "article/article_list";
+        return "article_list";
     }
 
 }
