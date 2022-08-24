@@ -61,8 +61,10 @@
     <!-- 답변 반복 끝  -->
 
       <!-- 답변 작성 -->
-    <form th:action="@{|/comment/create/${article.id}|}" method="post">
-      <textarea class="form-control" name="content" id="content" rows="10"></textarea>
+    <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post" class="my-3">
+      <div th:replace="form_errors :: formErrorsFragment"></div>
+
+      <textarea class="form-control" th:field="*{content}" rows="10"></textarea>
       <input type="submit" value="댓글 등록" class="btn btn-primary my-2">
     </form>
 

@@ -3,6 +3,7 @@ package com.study.blog.domain.article.controller;
 import com.study.blog.domain.article.domain.Article;
 import com.study.blog.domain.article.domain.dto.ArticleForm;
 import com.study.blog.domain.article.service.ArticleService;
+import com.study.blog.domain.comment.domain.dto.CommentForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,7 @@ public class ArticleController {
     }
 
     @GetMapping("/detail/{id}")
-    public String getArticle(Model model, @PathVariable("id") long id){
+    public String getArticle(Model model, @PathVariable("id") long id, CommentForm commentForm){
         Article article = articleService.getArticle(id);
 
         model.addAttribute(article);
