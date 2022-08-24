@@ -25,6 +25,8 @@ public class Article extends BaseTimeEntity {
     @OneToMany(mappedBy = "article", cascade= CascadeType.REMOVE)
     private List<Comment> commentList = new ArrayList<>();
 
-
+    public void addComment(Comment comment){
+        commentList.add(comment);
+    }
 
 }
