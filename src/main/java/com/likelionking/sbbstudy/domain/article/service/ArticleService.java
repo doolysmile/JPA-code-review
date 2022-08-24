@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    public void write(ArticleForm articleForm) {
+
+
+    public Long write(ArticleForm articleForm) {
         Article article = ArticleForm.toEntity(articleForm);
-        articleRepository.save(article);
+        Article save = articleRepository.save(article);
+        return save.getId();
     }
 }
