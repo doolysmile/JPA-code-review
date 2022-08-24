@@ -29,7 +29,7 @@ public class ArticleController {
      * 게시물 폼 이동
      */
     @GetMapping("/write")
-    public String write() {
+    public String write(ArticleForm articleForm) {
         return "article_form";
     }
 

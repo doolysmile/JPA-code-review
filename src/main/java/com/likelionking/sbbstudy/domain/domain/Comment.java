@@ -2,6 +2,7 @@ package com.likelionking.sbbstudy.domain.domain;
 
 
 import com.likelionking.sbbstudy.domain.article.domain.Article;
+import com.likelionking.sbbstudy.domain.base.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
