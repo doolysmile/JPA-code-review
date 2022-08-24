@@ -1,7 +1,7 @@
 package com.likelionking.sbbstudy.domain.comment;
 
 
-import com.likelionking.sbbstudy.domain.article.Article;
+import com.likelionking.sbbstudy.domain.article.domain.Article;
 import lombok.Getter;
 
 import javax.persistence.*;
