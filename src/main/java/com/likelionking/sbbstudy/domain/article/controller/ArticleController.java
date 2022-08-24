@@ -58,8 +58,8 @@ public class ArticleController {
     /**
      * 게시글 조회
      */
-    @GetMapping("/detial/{articleId}")
-    public String detail(Model model, @PathVariable("articleId") Long id){
+    @GetMapping("/detail/{article_id}")
+    public String detail(Model model, @PathVariable("article_id") Long id){
         Article article = articleService.getArticle(id);
         model.addAttribute("article", article);
         return "article_detail";

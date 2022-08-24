@@ -1,13 +1,20 @@
-package com.likelionking.sbbstudy.domain.comment;
+package com.likelionking.sbbstudy.domain.domain;
 
 
 import com.likelionking.sbbstudy.domain.article.domain.Article;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment {
 
     @Id

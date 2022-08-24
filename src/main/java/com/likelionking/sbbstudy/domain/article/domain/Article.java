@@ -1,20 +1,19 @@
 package com.likelionking.sbbstudy.domain.article.domain;
 
 import com.likelionking.sbbstudy.domain.base.BaseTimeEntity;
-import com.likelionking.sbbstudy.domain.comment.Comment;
+import com.likelionking.sbbstudy.domain.domain.Comment;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Entity
-@Builder
+@SuperBuilder // 상속 받고 있으면 superBuilder 사용
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article extends BaseTimeEntity {
