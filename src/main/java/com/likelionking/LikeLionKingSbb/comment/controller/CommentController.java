@@ -22,7 +22,7 @@ public class CommentController {
     @PostMapping("/write/{article_id}")
     public String getDetail(@PathVariable("article_id") Long articleId, @Valid CommentForm commentForm, BindingResult bindingResult) {
         Article article = articleService.findById(articleId);
-        System.out.println("됨");
+
         if (bindingResult.hasErrors()) {
             return "article_detail";
         }

@@ -1,5 +1,6 @@
 package com.likelionking.LikeLionKingSbb.article.dto;
 
+import com.likelionking.LikeLionKingSbb.article.domain.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +18,11 @@ public class ArticleForm {
 
     @NotEmpty(message = "내용은 필수항목입니다.")
     private String content;
+
+    public static Article toEntity(ArticleForm articleForm) {
+        return Article.builder()
+                .title(articleForm.getTitle())
+                .content(articleForm.getContent())
+                .build();
+    }
 }
