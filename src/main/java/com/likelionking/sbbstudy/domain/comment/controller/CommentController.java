@@ -2,17 +2,15 @@ package com.likelionking.sbbstudy.domain.comment.controller;
 
 
 import com.likelionking.sbbstudy.domain.article.domain.Article;
-import com.likelionking.sbbstudy.domain.article.domain.ArticleForm;
 import com.likelionking.sbbstudy.domain.article.service.ArticleService;
 import com.likelionking.sbbstudy.domain.comment.service.CommentService;
-import com.likelionking.sbbstudy.domain.domain.CommentForm;
+import com.likelionking.sbbstudy.domain.comment.domain.CommentForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 

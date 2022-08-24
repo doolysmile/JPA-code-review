@@ -1,11 +1,10 @@
-package com.likelionking.sbbstudy.domain.domain;
+package com.likelionking.sbbstudy.domain.comment.domain;
 
 import com.likelionking.sbbstudy.domain.article.domain.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 
 @Getter

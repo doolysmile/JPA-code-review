@@ -1,4 +1,4 @@
-package com.likelionking.sbbstudy.domain.domain;
+package com.likelionking.sbbstudy.domain.comment.domain;
 
 
 import com.likelionking.sbbstudy.domain.article.domain.Article;
