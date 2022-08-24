@@ -6,11 +6,13 @@ import com.study.blog.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -37,12 +39,17 @@ public class ArticleController {
     }
 
     @GetMapping("/create")
-    public String showCreate(){
+    public String showCreate(ArticleForm articleForm){
         return "article_create";
     }
 
     @PostMapping("/create")
-    public String create(Model model, ArticleForm articleForm){
+    public String create(Model model, @Valid ArticleForm articleForm, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
+            return "article_create";
+        }
+
         articleService.create(articleForm.getTitle(),articleForm.getContent());
 
         return "redirect:/article/list";
