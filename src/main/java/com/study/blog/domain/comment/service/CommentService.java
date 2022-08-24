@@ -19,6 +19,7 @@ public class CommentService {
         comment.setArticle(article);
         comment.setCreateDate(LocalDateTime.now());
         comment.setContent(content);
+        article.addComment(comment);
 
         commentRepository.save(comment);
     }

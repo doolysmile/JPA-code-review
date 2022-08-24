@@ -1,12 +1,14 @@
 package com.study.blog.domain.article.controller;
 
 import com.study.blog.domain.article.domain.Article;
+import com.study.blog.domain.article.domain.dto.ArticleForm;
 import com.study.blog.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -32,5 +34,17 @@ public class ArticleController {
 
         model.addAttribute(article);
         return "article_detail.html";
+    }
+
+    @GetMapping("/create")
+    public String showCreate(){
+        return "article_create";
+    }
+
+    @PostMapping("/create")
+    public String create(Model model, ArticleForm articleForm){
+        articleService.create(articleForm.getTitle(),articleForm.getContent());
+
+        return "redirect:/article/list";
     }
 }

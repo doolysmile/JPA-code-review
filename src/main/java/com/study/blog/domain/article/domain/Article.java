@@ -25,4 +25,9 @@ public class Article {
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> commentList;
+
+    public void addComment(Comment comment) {
+        comment.setArticle(this);
+        getCommentList().add(comment);
+    }
 }
