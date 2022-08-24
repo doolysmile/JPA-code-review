@@ -1,11 +1,15 @@
 package com.study.blog.domain.comment.domain;
 
 import com.study.blog.domain.article.domain.Article;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 public class Comment {
 
     @Id // primary key
