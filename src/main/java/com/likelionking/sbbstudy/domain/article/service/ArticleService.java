@@ -6,6 +6,8 @@ import com.likelionking.sbbstudy.domain.article.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -17,5 +19,9 @@ public class ArticleService {
         Article article = ArticleForm.toEntity(articleForm);
         Article save = articleRepository.save(article);
         return save.getId();
+    }
+
+    public List<Article> getList() {
+        return articleRepository.findAll();
     }
 }
