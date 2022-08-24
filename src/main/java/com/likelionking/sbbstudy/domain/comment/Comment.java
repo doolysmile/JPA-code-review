@@ -22,5 +22,10 @@ public class Comment {
     @JoinColumn(name = "article_id")
     private Article article;
 
+    public void confirmArticle(Article article){
+        this.article = article;
+        article.addComment(this);
+    }
+
 
 }
