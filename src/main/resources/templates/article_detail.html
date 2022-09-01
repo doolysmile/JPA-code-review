@@ -1,0 +1,29 @@
+<!--레이아웃으로 사용할 템플릿 설정-->
+<html layout:decorate="~{layout}"></html>
+<div layout:frament="content" class="container my-3">
+    <div class="border-bottom my-3 pb-2">
+        <h2 class="" th:text="${article.title}"></h2>
+        <span style="font-size: 15px" class="badge rounded-pill bg-light text-dark" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd hh:mm')}"></span>
+    </div>
+    <div class="card mb-5">
+        <div class="card-body">
+            <div th:text="${article.content}"></div>
+        </div>
+    </div>
+    <h5 th:text="|${#lists.size(article.getCommentList())} comments|"></h5>
+    <div class="card mb-3" th:each="comment : ${article.commentList}">
+        <div class="card-body">
+            <div class="d-flex mb-2">
+                <span class="badge bg-light text-dark" th:text="${#temporals.format(comment.createdAt, 'yyyy.MM.dd hh:mm')}"></span>
+            </div>
+            <div th:text="${comment.content}"></div>
+        </div>
+    </div>
+    <form th:action="@{|/comment/write/${article.id}|}" method="post">
+        <div class="border-top border-3 py-3 d-flex ">
+<!--            오류 메시지 출력하려면 게시글 조회 컨트롤러에 commentForm 추가-->
+            <textarea name="content" class="form-control" rows="4" required></textarea>
+            <input type="submit" value="등록" class="btn btn-primary mx-2">
+        </div>
+    </form>
+</div>
