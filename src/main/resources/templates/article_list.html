@@ -18,6 +18,9 @@
             <td class="col-1" th:text="${article.id}"></td>
             <td class="col-8">
                 <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}"></a>
+                <span th:if="${#lists.size(article.commentList) > 0}"
+                      class="mx-3 badge rounded-pill text-bg-success"
+                      th:text="${#lists.size(article.commentList)}"></span>
             </td>
             <td class="row-2" th:text="${#temporals.format(article.createdAt, 'yyyy.MM.dd HH:mm')}"></td>
         </tr>
