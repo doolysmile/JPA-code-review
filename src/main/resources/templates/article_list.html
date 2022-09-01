@@ -14,14 +14,43 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="article : ${articleList}">
-            <td th:text="${article.id}"></td>
-            <td>
+        <tr th:each="article : ${paging}">
+            <td class="col-1" th:text="${article.id}"></td>
+            <td class="col-8">
                 <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}"></a>
             </td>
-            <td th:text="${#temporals.format(article.createdAt, 'yyyy.MM.dd')}"></td>
+            <td class="row-2" th:text="${#temporals.format(article.createdAt, 'yyyy.MM.dd HH:mm')}"></td>
         </tr>
         </tbody>
     </table>
+
+    <div th:if="${!paging.isEmpty()}" class="d-flex justify-content-center">
+        <!--pagination-->
+        <nav aria-label="..."
+        th:with="size = 2">
+            <ul class="pagination">
+                <li class="page-item"
+                    th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                    <a class="page-link" th:href="@{|/article/list?page=0|}"><<</a>
+                </li>
+                <li class="page-item"
+                    th:classappend="${!paging.hasPrevious()} ? 'disabled'">
+                    <a class="page-link" th:href="@{|/article/list?page=${paging.number - 1}|}">이전</a>
+                </li>
+                <li th:each="page : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                    th:classappend="${page == paging.number} ? 'active'"
+                    th:if="${paging.number - size <= page and page <= paging.number + size}"
+                    class="page-item">
+                    <a class="page-link" th:href="@{|/article/list?page=${page}|}" th:text="${page + 1}"></a>
+                </li>
+                <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                    <a class="page-link" th:href="@{|/article/list?page=${paging.number + 1}|}">다음</a>
+                </li>
+                <li class="page-item" th:classappend="${!paging.hasNext()} ? 'disabled'">
+                    <a class="page-link" th:href="@{|/article/list?page=${paging.totalPages - 1}|}">>></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 
