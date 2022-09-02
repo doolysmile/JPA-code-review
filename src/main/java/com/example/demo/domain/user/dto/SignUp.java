@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 public class SignUp {
     @Getter
@@ -36,6 +37,8 @@ public class SignUp {
                     .email(email)
                     .password(password)
                     .name(name)
+                    .createdAt(LocalDateTime.now())
+                    .updatedAt(LocalDateTime.now())
                     .build();
         }
     }
