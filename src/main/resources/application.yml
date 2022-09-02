@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:~/test2
+    username: user
+    password: 123
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug;
+        type:
+          descriptor:
+            sql : trace
