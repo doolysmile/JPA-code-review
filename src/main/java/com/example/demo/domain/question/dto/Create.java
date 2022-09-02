@@ -4,12 +4,11 @@ import com.example.demo.domain.question.entity.Question;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-public class CreateQuestion {
+public class Create {
     @Getter
     @Setter
     public static class RequestDto{
