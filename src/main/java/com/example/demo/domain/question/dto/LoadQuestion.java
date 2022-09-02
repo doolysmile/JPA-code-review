@@ -17,14 +17,14 @@ public class LoadQuestion {
         private Long id;
         private String subject;
         private String content;
-        private LocalDateTime createDateTime;
+        private LocalDateTime createdAt;
         private List<Answer> answerList;
 
         public ResponseDto(Question question) {
             this.id = question.getId();
             this.subject = question.getSubject();
             this.content = question.getContent();
-            this.createDateTime = question.getCreateDateTime();
+            this.createdAt = question.getCreatedAt();
             this.answerList = question.getAnswerList();
         }
     }

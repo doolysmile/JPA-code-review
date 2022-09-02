@@ -20,7 +20,7 @@ public class Create {
             return Answer.builder()
                     .id(id)
                     .content(content)
-                    .createDateTime(LocalDateTime.now())
+                    .createdAt(LocalDateTime.now())
                     .question(question)
                     .build();
         }

@@ -22,7 +22,7 @@ public class Create {
             return Question.builder()
                     .subject(subject)
                     .content(content)
-                    .createDateTime(LocalDateTime.now())
+                    .createdAt(LocalDateTime.now())
                     .build();
         }
     }
