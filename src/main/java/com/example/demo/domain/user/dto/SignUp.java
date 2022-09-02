@@ -1,11 +1,13 @@
 package com.example.demo.domain.user.dto;
 
 import com.example.demo.domain.user.entity.SiteUser;
+import com.example.demo.global.common.embedded.Address;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -32,11 +34,23 @@ public class SignUp {
         @Size(max = 50)
         private String name;
 
+        private String city;
+
+        private String street;
+
+        private String zipCode;
         public SiteUser toEntity(){
+            Address address = Address.builder()
+                    .city(city)
+                    .street(street)
+                    .zipCode(zipCode)
+                    .build();
+
             return SiteUser.builder()
                     .email(email)
                     .password(password)
                     .name(name)
+                    .address(address)
                     .createdAt(LocalDateTime.now())
                     .updatedAt(LocalDateTime.now())
                     .build();
