@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
-public class CreateAnswer {
+public class Create {
     @Getter
     @Setter
     public static class RequestDto{

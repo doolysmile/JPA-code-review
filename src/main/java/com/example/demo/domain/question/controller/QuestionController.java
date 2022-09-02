@@ -1,9 +1,8 @@
 package com.example.demo.domain.question.controller;
 
-import com.example.demo.domain.answer.dto.CreateAnswer;
+import com.example.demo.domain.answer.dto.Create;
 import com.example.demo.domain.question.dto.CreateQuestion;
 import com.example.demo.domain.question.dto.LoadQuestion;
-import com.example.demo.domain.question.entity.Question;
 import com.example.demo.domain.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,7 @@ public class QuestionController {
         LoadQuestion.ResponseDto question = this.questionService.getQuestion(id);
 
         model.addAttribute("question", question);
-        model.addAttribute("requestDto", new CreateAnswer.RequestDto());
+        model.addAttribute("requestDto", new Create.RequestDto());
 
         return "question_detail";
     }
