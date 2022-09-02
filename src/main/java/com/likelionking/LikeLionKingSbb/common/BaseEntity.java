@@ -16,10 +16,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor  // JPA Entity에서 이벤트 발생할 때마다 특정 로직 실행
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
