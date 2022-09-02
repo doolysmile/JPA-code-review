@@ -12,18 +12,24 @@ import javax.persistence.Entity;
 @Getter
 @Entity
 @SuperBuilder
-public class User extends BaseEntity {
-    @Column(unique = true)
+public class SiteUser extends BaseEntity {
+    @Column(unique = true, length = 50)
     private String email;
 
+    @Column(length = 200)
     private String password;
 
-    private String username;
+    @Column(length = 30)
+    private String name;
 
     @Embedded
+    @Column(nullable = false)
     private Address address;
 
-    protected User() {
+    protected SiteUser() {
 
+    }
+    public void changePassword(String password){
+        this.password = password;
     }
 }

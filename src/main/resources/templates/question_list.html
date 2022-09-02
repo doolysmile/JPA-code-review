@@ -18,7 +18,7 @@
                         th:text="${#lists.size(question.answerList)}">
                     </span>
                 </td>
-                <td th:text="${#temporals.format(question.createDateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(question.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
         </tbody>
     </table>
