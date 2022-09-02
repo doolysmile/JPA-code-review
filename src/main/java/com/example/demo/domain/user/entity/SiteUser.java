@@ -5,9 +5,7 @@ import com.example.demo.global.common.entity.BaseEntity;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -25,6 +23,11 @@ public class SiteUser extends BaseEntity {
     @Embedded
     @Column(nullable = false)
     private Address address;
+
+    // TODO role 컴버터와 함께 구현
+//    @Enumerated(EnumType.STRING)
+//    @Column(columnDefinition = "ROLE_ADMIN")
+//    private SiteUserRole role;
 
     protected SiteUser() {
 
