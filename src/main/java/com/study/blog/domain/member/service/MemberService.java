@@ -37,5 +37,7 @@ public class MemberService {
         return memberDto;
     }
 
-
+    public long memberCount(){
+        return memberRepository.count();
+    }
 }
