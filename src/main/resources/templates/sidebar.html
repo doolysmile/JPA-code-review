@@ -1,0 +1,72 @@
+<html lang="ko"
+      xmlns:th="http://thymeleaf.org"
+>
+<nav th:fragment="sidebarFragment" class="main-menu">
+    <ul>
+        <li>
+            <a th:href="@{/}">
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">
+                                home
+                            </span>
+            </a>
+        </li>
+
+        <li class="has-subnav">
+            <a href="#">
+                <i class="fa fa-user-circle fa-2x"></i>
+                <span class="nav-text">
+                                About Me
+                    </span>
+            </a>
+        </li>
+
+        <li class="has-subnav">
+            <a th:href="@{/article/list}">
+                <i class="fa fa-list fa-2x"></i>
+                <span class="nav-text">
+                                Categories
+                    </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa fa-check-square fa-2x"></i>
+                <span class="nav-text">
+                                TO-DO List
+                    </span>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                <i class="fa fa-calendar"></i>
+                <span class="nav-text">
+                               Schedule
+                    </span>
+            </a>
+        </li>
+
+        <li class="has-subnav">
+            <a href="https://github.com/woominsik">
+                <i class="fa fa-github fa-2x"></i>
+                <span class="nav-text">
+                                github
+                    </span>
+            </a>
+        </li>
+    </ul>
+
+
+    <ul class="logout">
+        <li>
+            <a href="#">
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                                Logout
+                </span>
+            </a>
+        </li>
+    </ul>
+</nav>

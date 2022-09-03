@@ -1,0 +1,76 @@
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://thymeleaf.org"
+        layout:decorate="~{layout}">
+
+<div layout:fragment="content" class="container my-3 w-75">
+  <div class = "col text-center" >
+    <div class ="mb-5 border-bottom ">
+      <h1 th:text="${article.title}"></h1>
+      <ul class ="list-inline">
+        <li class = "list-inline-item">
+          By Woo Minsik
+        </li>
+
+        <li class = "list-inline-item" th:text="${#temporals.format(article.createDate, 'yy-MM-dd HH:mm')}"></li>
+        <li class = "list-inline-item">
+          Category, subCategory
+        </li>
+      </ul>
+    </div>
+
+    <div class = "mt-30">
+      <p th:text="${article.content}"></p>
+    </div>
+  </div>
+
+  <div class="mt-7">
+    <h5 class="border-bottom my-3 py-2"
+        th:text="|${#lists.size(article.commentList)} Comments|"></h5>
+
+    <div class="card my-3" th:each="comment : ${article.commentList}">
+      <a style="scroll-margin-top:10px;" th:id="|comment_${comment.id}|"></a>
+      <div class="card-body">
+        <div class="card-text" th:utext="${comment.content}"></div>
+
+        <div class="d-flex justify-content-end">
+          <div th:if="${comment.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
+            <div class="mb-2">modified at</div>
+            <div th:text="${#temporals.format(comment.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+          </div>
+
+          <div class="badge bg-light text-dark p-2 text-start">
+            <div class="mb-2">
+              <span>우민식</span>
+            </div>
+            <div th:text="${#temporals.format(comment.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+          </div>
+        </div>
+
+        <div class="my-3">
+          <a th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+             th:text="수정"></a>
+
+          <a onclick="if ( !confirm('정말로 삭제하시겠습니까?') ) return false;" th:href="@{|/comment/delete/${comment.id}|}"
+             class="btn btn-sm btn-outline-secondary"
+             th:text="삭제"></a>
+        </div>
+
+      </div>
+    </div>
+    <!-- 답변 반복 끝  -->
+
+      <!-- 답변 작성 -->
+    <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post" class="my-3">
+      <div th:replace="form_errors :: formErrorsFragment"></div>
+
+      <textarea class="form-control" th:field="*{content}" rows="10"></textarea>
+      <input type="submit" value="댓글 등록" class="btn btn-primary my-2">
+    </form>
+
+  </div>
+
+
+
+
+</div>

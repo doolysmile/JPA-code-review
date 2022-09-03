@@ -1,0 +1,60 @@
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://thymeleaf.org"
+        layout:decorate="~{layout}">
+
+<div layout:fragment="content" class="container my-3">
+    <a th:href="@{/article/create}" class="btn btn-dark mb-3">게시글 작성</a>
+    <div class = "container">
+        <th:block th:each="article : ${articleList}">
+            <div class="card m-7" style="width: 25%;">
+                <div class="card-body">
+                    <div class="card-title border-bottom">
+                        <h2 class = "">
+                            <a th:href="@{|/article/detail/${article.id}|}"
+                               class = "text-dark"
+                               style="text-decoration:none"
+                               th:text="${article.title}"></a>
+                        </h2>
+
+                        <p th:text="${#temporals.format(article.createDate, 'yy-MM-dd HH:mm')}"></p>
+                    </div>
+
+                    <div class="mt-4">
+                        <p class="card-text text-secondary" th:if="${#strings.length(article.content)>=50}" th:text="${#strings.substring(article.content,0,47)+'...'}"></p>
+                        <p class="card-text text-secondary" th:if="${#strings.length(article.content)<50}" th:text="${article.content}"></p>
+                    </div>
+                </div>
+            </div>
+
+        </th:block>
+
+    </div>
+
+    <!--    <table class="table text-center">-->
+    <!--        <colgroup>-->
+    <!--            <col>-->
+    <!--            <col width="50%">-->
+    <!--        </colgroup>-->
+    <!--        <thead class="table-dark">-->
+    <!--        <tr>-->
+    <!--            <th>번호</th>-->
+    <!--            <th>제목</th>-->
+    <!--            <th>작성일시</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+    <!--        <tr th:each="article : ${articleList}">-->
+    <!--            <td th:text="${article.id}"></td>-->
+    <!--            <td class="text-start">-->
+    <!--                <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}"></a>-->
+    <!--                <span class="text-danger small ms-2" th:if="${#lists.size(article.commentList) > 0}"-->
+    <!--                      th:text="${#lists.size(article.commentList)}">-->
+    <!--                </span>-->
+    <!--            </td>-->
+    <!--            <td th:text="${#temporals.format(article.createDate, 'yy-MM-dd HH:mm')}"></td>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--    </table>-->
+</div>
+</html>
