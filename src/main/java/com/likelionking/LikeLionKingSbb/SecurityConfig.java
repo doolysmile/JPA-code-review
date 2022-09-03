@@ -14,7 +14,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll();    // 모든 페이지 로그인없이 요청O
+                    .antMatchers("/**").permitAll()  // 모든 페이지 로그인없이 요청O
+                .and()
+                    .formLogin()
+                    .loginPage("/user/login")
+                    .defaultSuccessUrl("/")         // 로그인 페이지, 성공시 url 설정
+
+        ;
 
         return http.build();
     }
