@@ -5,6 +5,7 @@ import com.likelionking.LikeLionKingSbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,6 +17,13 @@ import javax.validation.Valid;
 public class UserController {
     private final UserService userService;
 
+    // 회원가입 폼
+    @GetMapping("/signup")
+    public String signupForm(UserCreateForm userCreateForm) {
+        return "signup_form";
+    }
+
+    // 회원가입
     @PostMapping("/signup")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
