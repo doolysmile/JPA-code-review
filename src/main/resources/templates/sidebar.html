@@ -70,13 +70,13 @@
         </li>
 
         <li>
-            <a sec:authorize="isAnonymous()" th:href="@{/user/login}">
+            <a sec:authorize="isAnonymous()" th:href="@{/member/login}">
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text">
                                 Login
                 </span>
             </a>
-            <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">
+            <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text">
                                 Logout

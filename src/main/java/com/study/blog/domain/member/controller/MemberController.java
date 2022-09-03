@@ -2,6 +2,7 @@ package com.study.blog.domain.member.controller;
 
 import com.study.blog.domain.member.domain.dto.MemberCreateForm;
 import com.study.blog.domain.member.service.MemberService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -37,5 +38,10 @@ public class MemberController {
         memberService.create(memberCreateForm.toDto());
 
         return "redirect:/";
+    }
+
+    @GetMapping("login")
+    public String login(){
+        return "login_form";
     }
 }
