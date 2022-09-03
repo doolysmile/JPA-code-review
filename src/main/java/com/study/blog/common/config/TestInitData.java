@@ -1,4 +1,4 @@
-package com.study.blog.common.base;
+package com.study.blog.common.config;
 
 import com.study.blog.domain.member.domain.Member;
 import com.study.blog.domain.member.repository.MemberRepository;
