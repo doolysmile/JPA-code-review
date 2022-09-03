@@ -32,7 +32,7 @@ public class UserCreateForm {
     public static SiteUser toEntity(UserCreateForm userCreateForm) {
         return SiteUser.builder()
                 .username(userCreateForm.getUsername())
-                .password(userCreateForm.getPassword2())
+                .password(userCreateForm.getPassword1())
                 .email(userCreateForm.getEmail())
                 .build();
     }
