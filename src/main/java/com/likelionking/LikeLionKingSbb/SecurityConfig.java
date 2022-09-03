@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity  // 모든 요청이 spring security 제어 받도록
@@ -16,12 +17,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .antMatchers("/**").permitAll()  // 모든 페이지 로그인없이 요청O
+                // 모든 페이지 로그인없이 요청O
+                .antMatchers("/**").permitAll()
+                // 로그인 요청
                 .and()
                     .formLogin()
                     .loginPage("/user/login")
-                    .defaultSuccessUrl("/")         // 로그인 페이지, 성공시 url 설정
-
+                    .defaultSuccessUrl("/")     // 로그인 성공시 url
+                // 로그아웃 요청()
+                .and()
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                    .logoutSuccessUrl("/")          // 로그아웃 성공시 url
+                    .invalidateHttpSession(true)    // 세션 정보 제거
         ;
 
         return http.build();
