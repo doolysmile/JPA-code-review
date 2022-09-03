@@ -1,6 +1,6 @@
 <html lang="ko"
       xmlns:th="http://thymeleaf.org"
->
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <nav th:fragment="sidebarFragment" class="main-menu">
     <ul>
         <li>
@@ -61,7 +61,7 @@
 
     <ul class="logout">
         <li>
-            <a href="#">
+            <a th:href="@{/member/create}">
                 <i class="fa fa-user-circle fa-2x"></i>
                 <span class="nav-text">
                                 SignUp
@@ -70,7 +70,13 @@
         </li>
 
         <li>
-            <a href="#">
+            <a sec:authorize="isAnonymous()" th:href="@{/user/login}">
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                                Login
+                </span>
+            </a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text">
                                 Logout
