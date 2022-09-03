@@ -3,6 +3,7 @@ package com.likelionking.LikeLionKingSbb.user.controller;
 import com.likelionking.LikeLionKingSbb.user.domain.UserCreateForm;
 import com.likelionking.LikeLionKingSbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,18 @@ public class UserController {
             return "signup_form";
         }
 
-        userService.create(userCreateForm);
+        try {
+            userService.create(userCreateForm);
+        } catch(DataIntegrityViolationException e) {
+            // 중복 ID, email 예외처리
+            e.printStackTrace();
+            bindingResult.reject("duplicate", "중복된 ID or Email 입니다.");
+            return "signup_form";
+        }catch(Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", e.getMessage());
+            return "signup_form";
+        }
 
         return "redirect:/";
     }
