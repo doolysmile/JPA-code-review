@@ -10,7 +10,9 @@
     </div>
   </div>
   <form th:action="@{/member/create}" th:object="${memberCreateForm}" method="post">
+
     <div th:replace="form_errors :: formErrorsFragment"></div>
+
     <div class="mb-3">
       <label for="memberName" class="form-label">사용자ID</label>
       <input type="text" th:field="*{memberName}" class="form-control">

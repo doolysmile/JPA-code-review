@@ -1,7 +1,6 @@
 package com.study.blog.domain.member.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,15 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Getter
-@Setter
+@Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
-    private String username;
+    private String memberName;
 
     private String password;
 
