@@ -3,6 +3,7 @@ package com.example.LionKingJPA.domain.article.controller;
 import com.example.LionKingJPA.domain.article.dto.ArticleDto;
 import com.example.LionKingJPA.domain.article.entity.Article;
 import com.example.LionKingJPA.domain.article.service.ArticleService;
+import com.example.LionKingJPA.domain.comment.dto.CommentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +37,7 @@ public class ArticleController {
     }
 
     @GetMapping("/detail/{id}")
-    public String articleDetail(@PathVariable("id") Long id, Model model){
+    public String articleDetail(@PathVariable("id") Long id, Model model, CommentDto commentDto){
         model.addAttribute("article", articleService.findById(id));
         return "article/article_detail";
     }

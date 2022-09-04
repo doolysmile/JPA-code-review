@@ -1,18 +1,44 @@
-<!doctype html>
-<html lagn="ko">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-    <!-- sbb CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <title>JPA</title>
-</head>
+<!--<!doctype html>-->
+<!--<html lagn="ko">-->
+<!--<head>-->
+<!--    &lt;!&ndash; Required meta tags &ndash;&gt;-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+<!--    &lt;!&ndash; sbb CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">-->
+<!--    <title>JPA</title>-->
+<!--</head>-->
 
-<body>
-<div >
+<!--<body>-->
+<!--<div >-->
+<!--    <table class="table">-->
+<!--        <thead class="table-dark">-->
+<!--        <tr>-->
+<!--            <th>번호</th>-->
+<!--            <th>제목</th>-->
+<!--            <th>작성일시</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="article, loop : ${articleList}">-->
+<!--            <td th:text="${loop.count}"></td>-->
+<!--            <td>-->
+<!--                <a th:href="@{|/usr/article/detail/${article.id}|}" th:text="${article.title}"></a>-->
+<!--            </td>-->
+<!--            <td th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--    <a th:href="@{/usr/article/write}" class="btn btn-primary">질문 등록하기</a>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+<html layout:decorate="~{global/layout}">
+<div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
         <tr>
@@ -33,5 +59,5 @@
     </table>
     <a th:href="@{/usr/article/write}" class="btn btn-primary">질문 등록하기</a>
 </div>
-</body>
+
 </html>
