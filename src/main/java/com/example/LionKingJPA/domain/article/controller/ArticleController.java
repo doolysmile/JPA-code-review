@@ -5,6 +5,7 @@ import com.example.LionKingJPA.domain.article.entity.Article;
 import com.example.LionKingJPA.domain.article.service.ArticleService;
 import com.example.LionKingJPA.domain.comment.dto.CommentDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,12 +44,10 @@ public class ArticleController {
     }
 
     @GetMapping("/list")
-    public String articleList(Model model){
-        List<Article> articleList = articleService.findAll();
-        System.out.println("articleList.get(1).getId() = " + articleList.get(1).getId());
-        System.out.println("articleList.get(1).getContent() = " + articleList.get(1).getContent());
+    public String articleList(Model model, @RequestParam(defaultValue = "0") int page){
 
-        model.addAttribute("articleList", articleService.findAll());
+
+        model.addAttribute("articleList", articleService.findAll(page));
 
         return "article/article_list";
     }

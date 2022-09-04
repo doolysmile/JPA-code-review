@@ -23,13 +23,13 @@ class ArticleServiceTest {
 
     @Test
     public void 저장(){
-        Long beforeSize = Long.valueOf(articleService.findAll().size());
-        String title = "test2";
-        String content = "content2";
-        ArticleDto articleDto1 = new ArticleDto(title, content);
-        articleService.create(articleDto1);
-        Article findArticle = articleService.findById(beforeSize + 1);
-        assertThat(findArticle.getContent().equals(content));
+////        Long beforeSize = Long.valueOf(articleService.findAll().size());
+//        String title = "test2";
+//        String content = "content2";
+//        ArticleDto articleDto1 = new ArticleDto(title, content);
+//        articleService.create(articleDto1);
+//        Article findArticle = articleService.findById(beforeSize + 1);
+//        assertThat(findArticle.getContent().equals(content));
     }
 
     @Test
