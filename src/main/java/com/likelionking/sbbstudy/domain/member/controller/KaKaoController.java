@@ -24,8 +24,8 @@ public class KaKaoController {
     KaKaoService kaKaoService;
 
     @GetMapping("/oauth")
-    public String kakaoConnet() {
-
+    public String kakaoConnect() {
+        System.out.println("kakaoConnet");
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("client_id=" + "3327cd22ef6585c38612b166ce59d9c6");
@@ -62,7 +62,8 @@ public class KaKaoController {
         model.addAttribute("userInfo", userInfo);
 
         //ci는 비즈니스 전환후 검수신청 -> 허락받아야 수집 가능
-        return "home";
+//        return "home";
+        return "redirect:/article/list";
     }
 
 
