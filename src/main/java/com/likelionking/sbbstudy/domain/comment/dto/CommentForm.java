@@ -1,6 +1,7 @@
-package com.likelionking.sbbstudy.domain.comment.domain;
+package com.likelionking.sbbstudy.domain.comment.dto;
 
-import com.likelionking.sbbstudy.domain.article.domain.Article;
+import com.likelionking.sbbstudy.domain.article.entity.Article;
+import com.likelionking.sbbstudy.domain.comment.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

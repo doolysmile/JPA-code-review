@@ -1,12 +1,11 @@
 package com.likelionking.sbbstudy.domain.article.service;
 
-import com.likelionking.sbbstudy.domain.article.domain.Article;
-import com.likelionking.sbbstudy.domain.article.domain.ArticleForm;
+import com.likelionking.sbbstudy.domain.article.entity.Article;
+import com.likelionking.sbbstudy.domain.article.dto.ArticleForm;
 import com.likelionking.sbbstudy.domain.article.repository.ArticleRepository;
 import com.likelionking.sbbstudy.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

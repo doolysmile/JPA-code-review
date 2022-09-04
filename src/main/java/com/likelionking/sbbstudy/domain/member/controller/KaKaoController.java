@@ -52,7 +52,7 @@ public class KaKaoController {
 
 
     @GetMapping("/kakao")
-    public String getCI(@RequestParam String code, Model model) throws IOException {
+    public String kakaoCallback(@RequestParam String code, Model model) throws IOException {
 
         System.out.println("code = " + code);
         String access_token = kaKaoService.getToken(code);

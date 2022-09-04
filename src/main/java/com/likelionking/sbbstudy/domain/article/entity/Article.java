@@ -1,7 +1,7 @@
-package com.likelionking.sbbstudy.domain.article.domain;
+package com.likelionking.sbbstudy.domain.article.entity;
 
 import com.likelionking.sbbstudy.domain.base.BaseTimeEntity;
-import com.likelionking.sbbstudy.domain.comment.domain.Comment;
+import com.likelionking.sbbstudy.domain.comment.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

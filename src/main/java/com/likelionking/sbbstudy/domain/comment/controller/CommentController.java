@@ -1,10 +1,10 @@
 package com.likelionking.sbbstudy.domain.comment.controller;
 
 
-import com.likelionking.sbbstudy.domain.article.domain.Article;
+import com.likelionking.sbbstudy.domain.article.entity.Article;
 import com.likelionking.sbbstudy.domain.article.service.ArticleService;
 import com.likelionking.sbbstudy.domain.comment.service.CommentService;
-import com.likelionking.sbbstudy.domain.comment.domain.CommentForm;
+import com.likelionking.sbbstudy.domain.comment.dto.CommentForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;

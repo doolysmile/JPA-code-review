@@ -1,11 +1,10 @@
 package com.likelionking.sbbstudy.domain.article.controller;
 
 
-import com.likelionking.sbbstudy.domain.article.domain.Article;
-import com.likelionking.sbbstudy.domain.article.domain.ArticleForm;
+import com.likelionking.sbbstudy.domain.article.entity.Article;
+import com.likelionking.sbbstudy.domain.article.dto.ArticleForm;
 import com.likelionking.sbbstudy.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/article")
