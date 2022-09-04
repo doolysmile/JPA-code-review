@@ -17,6 +17,7 @@
             <td th:text="${(paging.number * paging.size) + loop.index + 1}"></td>
             <td>
                 <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.title}"></a>
+                <span class="text-info small ms-2" th:if="${#lists.size(article.commentList) > 0}" th:text="|(${article.getCommentList().size()})|"></span>
             </td>
             <td th:text="${#temporals.format(article.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
