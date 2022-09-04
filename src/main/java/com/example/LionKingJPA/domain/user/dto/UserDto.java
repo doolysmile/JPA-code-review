@@ -30,14 +30,16 @@ public class UserDto {
     @NotEmpty(message = "비밀번호 확인은 필수항목입니다.")
     private String passwordCheck;
 
-    @Embedded
-    private Address address;
+    private String city;
+    private String street;
+    private String zipcode;
 
     public static SiteUser toEntity(UserDto userDto, String password){
         return SiteUser.builder()
                 .email(userDto.getEmail())
                 .password(password)
                 .name(userDto.name)
+                .address(new Address(userDto.getCity(), userDto.getStreet(), userDto.getZipcode()))
                 .build();
     }
 }
