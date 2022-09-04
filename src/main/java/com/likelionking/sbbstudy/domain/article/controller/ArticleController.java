@@ -6,6 +6,10 @@ import com.likelionking.sbbstudy.domain.article.domain.ArticleForm;
 import com.likelionking.sbbstudy.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,9 +53,12 @@ public class ArticleController {
      * 게시글 리스트 조회
      */
     @GetMapping("/list")
-    public String getList(Model model) {
-        List<Article> list = articleService.getList();
-        model.addAttribute("articleList", list);
+    //Todo
+    // id -> updateAt으로 변경
+    public String getList(Model model, @PageableDefault(sort = "id", size = 20, direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<Article> list = articleService.getList(pageable);
+        model.addAttribute("paging", list);
+
         return "article_list";
     }
 
@@ -59,7 +66,7 @@ public class ArticleController {
      * 게시글 조회
      */
     @GetMapping("/detail/{article_id}")
-    public String detail(Model model, @PathVariable("article_id") Long id){
+    public String detail(Model model, @PathVariable("article_id") Long id, ArticleForm articleForm){
         Article article = articleService.getArticle(id);
         model.addAttribute("article", article);
         return "article_detail";
