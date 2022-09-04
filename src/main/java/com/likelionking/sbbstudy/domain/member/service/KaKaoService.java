@@ -21,40 +21,58 @@ import java.util.Map;
 @Service
 public class KaKaoService {
 
-    public JsonNode getKakaoAccessToken(String code) throws IOException {
-        final String RequestUrl = "https://kauth.kakao.com/oauth/token"; // Host
-        final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
-
-        postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-        postParams.add(new BasicNameValuePair("client_id", "REST API KEY!!!")); // REST API KEY
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/kakao/callback")); // 리다이렉트 URI
-        postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
-
-        final HttpClient client = HttpClientBuilder.create().build();
-        final HttpPost post = new HttpPost(RequestUrl);
-
-        JsonNode returnNode = null;
-
+    public String getToken(String code) throws IOException {
+        // 인가코드로 토큰받기
+        String host = "https://kauth.kakao.com/oauth/token";
+        URL url = new URL(host);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        String token = "";
         try {
-            post.setEntity(new UrlEncodedFormEntity(postParams));
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setDoOutput(true); // 데이터 기록 알려주기
 
-            final HttpResponse response = client.execute(post);
-            final int responseCode = response.getStatusLine().getStatusCode();
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id=3327cd22ef6585c38612b166ce59d9c6");
+            sb.append("&redirect_uri=http://localhost:8080/member/kakao");
+            sb.append("&code=" + code);
 
-            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
-            System.out.println("Post parameters : " + postParams);
-            System.out.println("Response Code : " + responseCode);
+            bw.write(sb.toString());
+            bw.flush();
 
-            // JSON 형태 반환값 처리
-            ObjectMapper mapper = new ObjectMapper();
+            int responseCode = urlConnection.getResponseCode();
+            System.out.println("responseCode = " + responseCode);
 
-            returnNode = mapper.readTree(response.getEntity().getContent());
+            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String line = "";
+            String result = "";
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("result = " + result);
 
+            // json parsing
+            JSONParser parser = new JSONParser();
+            JSONObject elem = (JSONObject) parser.parse(result);
+
+            String access_token = elem.get("access_token").toString();
+            String refresh_token = elem.get("refresh_token").toString();
+            System.out.println("refresh_token = " + refresh_token);
+            System.out.println("access_token = " + access_token);
+
+            token = access_token;
+
+            br.close();
+            bw.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        return returnNode;
+
+        return token;
     }
 
 
@@ -87,6 +105,7 @@ public class KaKaoService {
             JSONObject obj = (JSONObject) parser.parse(res);
             JSONObject kakao_account = (JSONObject) obj.get("kakao_account");
             JSONObject properties = (JSONObject) obj.get("properties");
+            System.out.println("properties = " + properties);
 
 
             String id = obj.get("id").toString();
@@ -139,6 +158,4 @@ public class KaKaoService {
         }
         return result;
     }
-
-
 }

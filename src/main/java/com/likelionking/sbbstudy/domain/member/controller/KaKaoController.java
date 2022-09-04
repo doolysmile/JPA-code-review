@@ -1,8 +1,10 @@
 package com.likelionking.sbbstudy.domain.member.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.likelionking.sbbstudy.domain.member.service.KaKaoService;
+import lombok.RequiredArgsConstructor;
 import org.apache.http.message.BasicNameValuePair;
 import org.aspectj.apache.bcel.classfile.annotation.NameValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
-@RequestMapping("/kakao")
+@RequestMapping("/member")
+@RequiredArgsConstructor
 public class KaKaoController {
+
+    @Autowired
+    KaKaoService kaKaoService;
 
     @GetMapping("/oauth")
     public String kakaoConnet() {
@@ -26,53 +33,30 @@ public class KaKaoController {
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
         url.append("client_id=" + "3327cd22ef6585c38612b166ce59d9c6");
-        url.append("&redirect_uri=http://localhost:8080/kakao/callback");
+        url.append("&redirect_uri=http://localhost:8080/member/kakao");
         url.append("&response_type=code");
 
         return "redirect:" + url.toString();
     }
 
-
-    @RequestMapping(value="/callback",produces="application/json",method= {RequestMethod.GET, RequestMethod.POST})
-    public String kakaoLogin(@RequestParam("code")String code, RedirectAttributes ra, HttpSession session, HttpServletResponse response, Model model)throws IOException {
-
-        System.out.println("kakao code:"+code);
-        return "";
+    @GetMapping("/do")
+    public String loginPage()
+    {
+        return "kakao_login";
     }
 
-    public JsonNode getKakaoAccessToken(String code) {
-        final String RequestUrl = "https://kauth.kakao.com/oauth/token"; // Host
-        final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 
-        postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-        postParams.add(new BasicNameValuePair("client_id", "...")); // REST API KEY
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/kakao/callback")); // 리다이렉트 URI
-        postParams.add(new BasicNameValuePair("code", code)); // 로그인 과정중 얻은 code 값
+    @GetMapping("/kakao")
+    public String getCI(@RequestParam String code, Model model) throws IOException {
+        System.out.println("code = " + code);
+        String access_token = kaKaoService.getToken(code);
+        Map<String, Object> userInfo = kaKaoService.getUserInfo(access_token);
+        model.addAttribute("code", code);
+        model.addAttribute("access_token", access_token);
+        model.addAttribute("userInfo", userInfo);
 
-        final HttpClient client = HttpClientBuilder.create().build();
-        final HttpPost post = new HttpPost(RequestUrl);
-
-        JsonNode returnNode = null;
-
-        try {
-            post.setEntity(new UrlEncodedFormEntity(postParams));
-
-            final HttpResponse response = client.execute(post);
-            final int responseCode = response.getStatusLine().getStatusCode();
-
-            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
-            System.out.println("Post parameters : " + postParams);
-            System.out.println("Response Code : " + responseCode);
-
-            // JSON 형태 반환값 처리
-            ObjectMapper mapper = new ObjectMapper();
-
-            returnNode = mapper.readTree(response.getEntity().getContent());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return returnNode;
+        //ci는 비즈니스 전환후 검수신청 -> 허락받아야 수집 가능
+        return "home";
     }
+
 }
