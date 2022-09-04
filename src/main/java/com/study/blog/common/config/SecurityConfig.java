@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .formLogin()
                 .loginPage("/member/login")
                 .defaultSuccessUrl("/")
+                .usernameParameter("memberName") // 디폴트는 username으로 다른 것으로 바꾸긴 위해서는 usernameParamerter 해줘야함
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
