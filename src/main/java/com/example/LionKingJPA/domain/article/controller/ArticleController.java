@@ -22,20 +22,23 @@ public class ArticleController {
     @GetMapping("/write")
     public String articleCreate(ArticleDto articleDto){
 
-        return "article_form";
+        return "article/article_form";
     }
 
     @PostMapping("/write")
     public String create(Model model, @Valid ArticleDto articleDto, BindingResult bindingResult){
-//        System.out.println("articleDto = " + articleDto.getContent());
+        System.out.println("articleDto = " + articleDto.getContent());
+        if (bindingResult.hasErrors()) {
+            return "article/article_form";
+        }
         articleService.create(articleDto);
-        return "article_form";
+        return "redirect:/usr/article/list";
     }
 
     @GetMapping("/detail/{id}")
     public String articleDetail(@PathVariable("id") Long id, Model model){
         model.addAttribute("article", articleService.findById(id));
-        return "article_detail";
+        return "article/article_detail";
     }
 
     @GetMapping("/list")
@@ -43,9 +46,10 @@ public class ArticleController {
         List<Article> articleList = articleService.findAll();
         System.out.println("articleList.get(1).getId() = " + articleList.get(1).getId());
         System.out.println("articleList.get(1).getContent() = " + articleList.get(1).getContent());
+
         model.addAttribute("articleList", articleService.findAll());
 
-        return "article_list";
+        return "article/article_list";
     }
 
 }
