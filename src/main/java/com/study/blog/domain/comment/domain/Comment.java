@@ -1,6 +1,7 @@
 package com.study.blog.domain.comment.domain;
 
 import com.study.blog.domain.article.domain.Article;
+import com.study.blog.domain.member.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +23,7 @@ public class Comment {
 
     @ManyToOne
     private Article article;
+
+    @ManyToOne
+    private Member author;
 }

@@ -52,6 +52,22 @@ public class MemberService {
         return memberDto;
     }
 
+    public MemberDto findByMemberName(String memberName){
+        Optional<Member> found = memberRepository.findByMemberName(memberName);
+
+        if(found.isEmpty()){
+            throw new MemberNotFoundException("해당 Id의 멤버는 존재하지 않습니다.");
+        }
+
+        MemberDto memberDto = MemberDto.builder()
+                .password(found.get().getPassword())
+                .memberName(found.get().getMemberName())
+                .email(found.get().getEmail())
+                .build();
+
+        return memberDto;
+    }
+
     public long memberCount(){
         return memberRepository.count();
     }
