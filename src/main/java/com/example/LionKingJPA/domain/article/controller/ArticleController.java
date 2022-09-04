@@ -47,7 +47,7 @@ public class ArticleController {
     public String articleList(Model model, @RequestParam(defaultValue = "0") int page){
 
 
-        model.addAttribute("articleList", articleService.findAll(page));
+        model.addAttribute("paging", articleService.findAll(page));
 
         return "article/article_list";
     }
