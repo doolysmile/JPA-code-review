@@ -1,4 +1,4 @@
-package com.mysite.sbb;
+package com.example.LionKingJPA.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -22,17 +23,20 @@ public class SecurityConfig {
                     .formLogin()
                     .loginPage("/usr/login")
                     .defaultSuccessUrl("/")
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+//                .and()
+//                    .logout()
+//                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+//                    .logoutSuccessUrl("/")
+//                    .invalidateHttpSession(true)
+                        ;
         return http.build();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

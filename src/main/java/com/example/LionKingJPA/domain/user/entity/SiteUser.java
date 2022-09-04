@@ -1,6 +1,7 @@
 package com.example.LionKingJPA.domain.user.entity;
 
 import com.example.LionKingJPA.global.common.BaseEntity;
+import lombok.*;
 
 
 import javax.persistence.Column;
@@ -8,6 +9,11 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class SiteUser extends BaseEntity {
 
     @Column(unique = true)
@@ -19,7 +25,7 @@ public class SiteUser extends BaseEntity {
     private String name;
 
     @Embedded
-    @Column(nullable = false)
+    @Column()
     private Address address;
 
 }
