@@ -2,6 +2,9 @@ package com.likelionking.sbbstudy.domain.member.service;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.aspectj.apache.bcel.classfile.annotation.NameValuePair;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -84,7 +87,7 @@ public class KaKaoService {
 
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Authorization", "Bearer " + access_token);
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod("POST");
 
             int responseCode = urlConnection.getResponseCode();
             System.out.println("responseCode = " + responseCode);
@@ -100,14 +103,21 @@ public class KaKaoService {
 
             System.out.println("res = " + res);
 
-
+            JsonParser json_parser = new JsonParser();
             JSONParser parser = new JSONParser();
+            JsonElement element = json_parser.parse(res);
             JSONObject obj = (JSONObject) parser.parse(res);
             JSONObject kakao_account = (JSONObject) obj.get("kakao_account");
             JSONObject properties = (JSONObject) obj.get("properties");
+
+
             System.out.println("properties = " + properties);
 
-
+            boolean hasEmail = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("has_email").getAsBoolean();
+            String email = "";
+            if(hasEmail){
+                email = element.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
+            }
             String id = obj.get("id").toString();
             String nickname = properties.get("nickname").toString();
             String age_range = kakao_account.get("age_range").toString();
@@ -115,6 +125,7 @@ public class KaKaoService {
             result.put("id", id);
             result.put("nickname", nickname);
             result.put("age_range", age_range);
+            result.put("email", email);
 
             br.close();
 
@@ -126,36 +137,31 @@ public class KaKaoService {
         return result;
     }
 
-    public String getAgreementInfo(String access_token)
-    {
-        String result = "";
-        String host = "https://kapi.kakao.com/v2/user/scopes";
-        try{
-            URL url = new URL(host);
-            HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setRequestProperty("Authorization", "Bearer "+access_token);
+    public void kakaoLogout(String access_Token){
+        String reqURL = "https://kapi.kakao.com/v1/user/logout";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String result = "";
             String line = "";
-            while((line=br.readLine())!=null)
-            {
-                result+=line;
+
+            while ((line = br.readLine()) != null) {
+                result += line;
             }
-
-            int responseCode = urlConnection.getResponseCode();
-            System.out.println("responseCode = " + responseCode);
-
-            // result is json format
-            br.close();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
+            System.out.println(result);
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return result;
     }
+
+
 }
