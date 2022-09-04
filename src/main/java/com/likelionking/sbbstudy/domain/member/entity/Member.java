@@ -1,6 +1,8 @@
 package com.likelionking.sbbstudy.domain.member.entity;
 
+import com.likelionking.sbbstudy.domain.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -9,7 +11,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {

@@ -120,11 +120,11 @@ public class KaKaoService {
             }
             String id = obj.get("id").toString();
             String nickname = properties.get("nickname").toString();
-            String age_range = kakao_account.get("age_range").toString();
+//            String age_range = kakao_account.get("age_range").toString();
 
             result.put("id", id);
             result.put("nickname", nickname);
-            result.put("age_range", age_range);
+//            result.put("age_range", age_range);
             result.put("email", email);
 
             br.close();
