@@ -25,11 +25,11 @@ public class SecurityConfig {
                 .antMatchers("/**").permitAll()
                 .and()
                     .formLogin()
-                    .loginPage("/usr/login")    // url 매핑
+                    .loginPage("/user/login")    // url 매핑
                     .defaultSuccessUrl("/")
                 .and()
                     .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/usr/logout"))
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true)
                         ;

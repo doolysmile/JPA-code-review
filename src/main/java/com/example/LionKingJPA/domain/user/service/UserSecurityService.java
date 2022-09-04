@@ -24,11 +24,13 @@ public class UserSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<SiteUser> _siteUser = this.userRepository.findByEmail(email);
+        System.out.println("email = " + email);
+        Optional<SiteUser> _siteUser = userRepository.findByEmail(email);
         if (_siteUser.isEmpty()) {
             throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }
         SiteUser siteUser = _siteUser.get();
+        System.out.println("siteUser.getName() = " + siteUser.getName());
         List<GrantedAuthority> authorities = new ArrayList<>();
         // admin은 특수 계정
         if ("admin@admin.com".equals(email)) {

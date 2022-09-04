@@ -16,6 +16,7 @@ public class UserService {
 
 
     public Long create(UserDto userDto){
+        // TODO : bean을 못 찾음
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return userRepository.save(UserDto.toEntity(userDto,
                 passwordEncoder.encode(userDto.getPassword()))).getId();

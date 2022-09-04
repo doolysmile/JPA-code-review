@@ -19,9 +19,10 @@ public class SiteUser extends BaseEntity {
     @Column(unique = true)
     private String email;
 
+    @Column()
     private String password;
 
-    @Column(unique = true)
+    @Column()
     private String name;
 
     @Embedded
