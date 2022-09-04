@@ -27,7 +27,7 @@ public class Comment extends BaseTimeEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
+  //  @JoinColumn(name = "article_id") 생략시 자동으로 해당 엔티티명_id로 컬럼 이름이 지정 됨.
     private Article article;
 
     public void confirmArticle(Article article){

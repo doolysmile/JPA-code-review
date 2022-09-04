@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotEmpty;
 public class ArticleForm {
 
     @NotEmpty(message = "제목을 입력해주세요.")
+    @Size(max = 200)
     private String title;
 
     @NotEmpty(message = "내용을 입력해주세요.")

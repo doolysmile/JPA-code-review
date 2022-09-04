@@ -22,12 +22,13 @@ public class Article extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 200)
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @OneToMany(mappedBy = "article", cascade= CascadeType.REMOVE)
+    @OneToMany(mappedBy = "article", cascade= CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
 
 
