@@ -5,6 +5,7 @@ import com.likelionking.sbbstudy.domain.member.service.KaKaoService;
 import com.likelionking.sbbstudy.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,13 @@ import java.util.Map;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
+    /**
+     * TODO
+     * SpringSecurity 추가
+     */
+
+    @Value("${custom.clientId}")
+    private String clientId;
 
     @Autowired
     KaKaoService kaKaoService;
@@ -28,10 +36,10 @@ public class MemberController {
 
     @GetMapping("/oauth")
     public String kakaoConnect() {
-
+        System.out.println("clientId = " + clientId);
         StringBuffer url = new StringBuffer();
         url.append("https://kauth.kakao.com/oauth/authorize?");
-        url.append("client_id=" + "3327cd22ef6585c38612b166ce59d9c6");
+        url.append("client_id=" + clientId);
         url.append("&redirect_uri=http://localhost:8080/member/kakao");
         url.append("&response_type=code");
 
@@ -39,7 +47,7 @@ public class MemberController {
     }
 
     @GetMapping("/do")
-    public String loginPage()
+    public String loginPage(HttpSession httpSession)
     {
         return "login";
     }

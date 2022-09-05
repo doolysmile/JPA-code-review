@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -23,10 +23,12 @@ spring:
     restart:
       enabled: false
 
-
-
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+custom:
+  clientId : 3327cd22ef6585c38612b166ce59d9c6
+
 
