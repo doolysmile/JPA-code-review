@@ -4,6 +4,9 @@
     <div class="border-bottom my-3 pb-2">
         <h2 class="" th:text="${article.title}"></h2>
         <span style="font-size: 15px" class="badge rounded-pill bg-light text-dark" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd hh:mm')}"></span>
+        <span style="font-size: 15px" class="badge rounded-pill bg-light text-dark"
+              th:if="${article.author != null}"
+              th:text="|글쓴이 : ${article.author.username}|"></span>
     </div>
     <div class="card mb-5">
         <div class="card-body">
@@ -13,7 +16,11 @@
     <h5 th:text="|${#lists.size(article.getCommentList())} comments|"></h5>
     <div class="card mb-3" th:each="comment : ${article.commentList}">
         <div class="card-body">
-            <div class="d-flex mb-2">
+            <div class="d-flex mb-2 d-flex">
+                <span class="badge bg-primary rounded-pill"
+                      th:if="${comment.author != null}"
+                      th:text="${comment.author.username}"></span>
+                <span class="flex-grow-1"></span>
                 <span class="badge bg-light text-dark" th:text="${#temporals.format(comment.createdAt, 'yyyy.MM.dd hh:mm')}"></span>
             </div>
             <div th:text="${comment.content}"></div>
