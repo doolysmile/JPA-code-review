@@ -2,7 +2,7 @@ package com.likelionking.LikeLionKingSbb.user.service;
 
 import com.likelionking.LikeLionKingSbb.exception.DataNotFoundException;
 import com.likelionking.LikeLionKingSbb.user.domain.SiteUser;
-import com.likelionking.LikeLionKingSbb.user.domain.UserCreateForm;
+import com.likelionking.LikeLionKingSbb.user.dto.UserDto;
 import com.likelionking.LikeLionKingSbb.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,11 +14,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public long create(UserCreateForm userCreateForm) {
-        // 비밀번호 bcrypt 암호화
-        userCreateForm.setPassword1(passwordEncoder.encode(userCreateForm.getPassword1()));
+    public long create(UserDto userDto) {
+        // TODO: 비밀번호 bcrypt 암호화 여기서 하는게 맞는지
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
-        SiteUser siteUser = UserCreateForm.toEntity(userCreateForm);
+        SiteUser siteUser = userDto.toEntity(userDto);
         SiteUser savedUser = userRepository.save(siteUser);
 
         return savedUser.getId();

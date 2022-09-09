@@ -1,6 +1,7 @@
 package com.likelionking.LikeLionKingSbb.user.controller;
 
-import com.likelionking.LikeLionKingSbb.user.domain.UserCreateForm;
+import com.likelionking.LikeLionKingSbb.user.dto.UserCreateForm;
+import com.likelionking.LikeLionKingSbb.user.dto.UserDto;
 import com.likelionking.LikeLionKingSbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -37,9 +38,9 @@ public class UserController {
             bindingResult.rejectValue("password2", "ValueMismatch", "확인용 비밀번호가 일치하지 않습니다.");
             return "signup_form";
         }
-
+        UserDto userDto = UserCreateForm.toDto(userCreateForm);
         try {
-            userService.create(userCreateForm);
+            userService.create(userDto);
         } catch(DataIntegrityViolationException e) {
             // 중복 ID, email 예외처리
             e.printStackTrace();

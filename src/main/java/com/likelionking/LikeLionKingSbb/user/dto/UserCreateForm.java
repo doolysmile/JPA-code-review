@@ -1,4 +1,4 @@
-package com.likelionking.LikeLionKingSbb.user.domain;
+package com.likelionking.LikeLionKingSbb.user.dto;
 
 
 import lombok.*;
@@ -29,8 +29,8 @@ public class UserCreateForm {
     @NotEmpty(message = "이메일은 필수항목입니다.")
     private String email;
 
-    public static SiteUser toEntity(UserCreateForm userCreateForm) {
-        return SiteUser.builder()
+    public static UserDto toDto(UserCreateForm userCreateForm) {
+        return UserDto.builder()
                 .username(userCreateForm.getUsername())
                 .password(userCreateForm.getPassword1())
                 .email(userCreateForm.getEmail())
