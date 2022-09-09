@@ -106,4 +106,19 @@ public class ArticleController {
 
         return "redirect:/article/detail/%d".formatted(articleId);
     }
+
+    // 게시글 삭제
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{article_id}")
+    public String delete(@PathVariable("article_id") Long articleId, Principal principal) {
+        Article article = articleService.findById(articleId);
+        // 로그인한 유저가 게시글 작성자인지 검증
+        if (!article.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+
+        articleService.delete(article);
+
+        return "redirect:/article/list";
+    }
 }
