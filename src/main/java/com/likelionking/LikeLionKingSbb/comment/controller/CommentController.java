@@ -2,6 +2,7 @@ package com.likelionking.LikeLionKingSbb.comment.controller;
 
 import com.likelionking.LikeLionKingSbb.article.domain.Article;
 import com.likelionking.LikeLionKingSbb.article.service.ArticleService;
+import com.likelionking.LikeLionKingSbb.comment.dto.CommentDto;
 import com.likelionking.LikeLionKingSbb.comment.dto.CommentForm;
 import com.likelionking.LikeLionKingSbb.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,9 @@ public class CommentController {
         if (bindingResult.hasErrors()) {
             return "article_detail";
         }
-
-        commentService.save(commentForm, article);
+        // Form -> Dto 변환
+        CommentDto commentDto = CommentForm.toDto(commentForm);
+        commentService.save(commentDto, article);
 
         return "redirect:/article/detail/%d".formatted(articleId);
     }
