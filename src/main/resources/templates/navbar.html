@@ -1,0 +1,32 @@
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="|/article/list|">SY's Board</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!--미인증 시, login 버튼 표시 -->
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAnonymous()"
+                       th:href="@{/user/login}">Login</a>
+                </li>
+                <!--인증 시, username(id)& logout 버튼 표시 -->
+                <li class="nav-item">
+                    <div class="nav-link" sec:authorize="isAuthenticated()" sec:authentication="name"></div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAuthenticated()"
+                       th:href="@{/user/logout}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user/signup}">SignUp</a>
+                </li>
+            </ul>
+            <!--            <form class="d-flex" role="search">-->
+            <!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+            <!--                <button class="btn btn-outline-success" type="submit">Search</button>-->
+            <!--            </form>-->
+        </div>
+    </div>
+</nav>
