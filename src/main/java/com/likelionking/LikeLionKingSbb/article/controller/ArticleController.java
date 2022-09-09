@@ -1,6 +1,7 @@
 package com.likelionking.LikeLionKingSbb.article.controller;
 
 import com.likelionking.LikeLionKingSbb.article.domain.Article;
+import com.likelionking.LikeLionKingSbb.article.dto.ArticleDto;
 import com.likelionking.LikeLionKingSbb.article.dto.ArticleForm;
 import com.likelionking.LikeLionKingSbb.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,9 @@ public class ArticleController {
         if (bindingResult.hasErrors()) {
             return "article_form";
         }
-        Long articleId = articleService.create(articleForm);
+        // Form -> Dto 변환
+        ArticleDto articleDto = ArticleForm.toDto(articleForm);
+        Long articleId = articleService.create(articleDto);
 
         return "redirect:/article/detail/%d".formatted(articleId);
     }

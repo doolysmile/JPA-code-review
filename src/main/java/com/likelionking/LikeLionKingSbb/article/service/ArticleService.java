@@ -1,7 +1,7 @@
 package com.likelionking.LikeLionKingSbb.article.service;
 
 import com.likelionking.LikeLionKingSbb.article.domain.Article;
-import com.likelionking.LikeLionKingSbb.article.dto.ArticleForm;
+import com.likelionking.LikeLionKingSbb.article.dto.ArticleDto;
 import com.likelionking.LikeLionKingSbb.article.repository.ArticleRepository;
 import com.likelionking.LikeLionKingSbb.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +39,8 @@ public class ArticleService {
         });
     }
 
-    public Long create(ArticleForm articleForm) {
-        Article article = ArticleForm.toEntity(articleForm);
+    public Long create(ArticleDto articleDto) {
+        Article article = ArticleDto.toEntity(articleDto);
         Article saveArticle = articleRepository.save(article);
 
         return saveArticle.getId();
