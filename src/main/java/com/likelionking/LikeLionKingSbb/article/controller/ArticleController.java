@@ -4,36 +4,46 @@ import com.likelionking.LikeLionKingSbb.article.domain.Article;
 import com.likelionking.LikeLionKingSbb.article.dto.ArticleDto;
 import com.likelionking.LikeLionKingSbb.article.dto.ArticleForm;
 import com.likelionking.LikeLionKingSbb.article.service.ArticleService;
+import com.likelionking.LikeLionKingSbb.user.domain.SiteUser;
+import com.likelionking.LikeLionKingSbb.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/article")
 @RequiredArgsConstructor
 public class ArticleController {
     private final ArticleService articleService;
+    private final UserService userService;
 
     // 게시글 등록폼
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
     public String createForm(ArticleForm articleForm) {
         return "article_form";
     }
 
     // 게시글 등록
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
-    public String create(@Valid ArticleForm articleForm, BindingResult bindingResult) {
+    public String create(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal) {
+        SiteUser author = userService.findByUsername(principal.getName());
+
         if (bindingResult.hasErrors()) {
             return "article_form";
         }
+
         // Form -> Dto 변환
         ArticleDto articleDto = ArticleForm.toDto(articleForm);
-        Long articleId = articleService.create(articleDto);
+        Long articleId = articleService.create(articleDto, author);
 
         return "redirect:/article/detail/%d".formatted(articleId);
     }

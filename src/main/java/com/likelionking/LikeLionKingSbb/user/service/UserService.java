@@ -29,4 +29,10 @@ public class UserService {
             throw new DataNotFoundException("user not found");
         });
     }
+
+    public SiteUser findByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> {
+            throw new DataNotFoundException("user not found");
+        });
+    }
 }

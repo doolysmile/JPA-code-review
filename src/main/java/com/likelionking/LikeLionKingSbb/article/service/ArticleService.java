@@ -4,6 +4,7 @@ import com.likelionking.LikeLionKingSbb.article.domain.Article;
 import com.likelionking.LikeLionKingSbb.article.dto.ArticleDto;
 import com.likelionking.LikeLionKingSbb.article.repository.ArticleRepository;
 import com.likelionking.LikeLionKingSbb.exception.DataNotFoundException;
+import com.likelionking.LikeLionKingSbb.user.domain.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,8 +40,8 @@ public class ArticleService {
         });
     }
 
-    public Long create(ArticleDto articleDto) {
-        Article article = ArticleDto.toEntity(articleDto);
+    public Long create(ArticleDto articleDto, SiteUser author) {
+        Article article = ArticleDto.toEntity(articleDto, author);
         Article saveArticle = articleRepository.save(article);
 
         return saveArticle.getId();

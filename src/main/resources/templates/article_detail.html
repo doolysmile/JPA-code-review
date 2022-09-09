@@ -19,11 +19,18 @@
             <div th:text="${comment.content}"></div>
         </div>
     </div>
+
     <form th:action="@{|/comment/write/${article.id}|}" method="post">
         <div class="border-top border-3 py-3 d-flex ">
 <!--            오류 메시지 출력하려면 게시글 조회 컨트롤러에 commentForm 추가-->
-            <textarea name="content" class="form-control" rows="4" required></textarea>
-            <input type="submit" value="등록" class="btn btn-primary mx-2">
+            <th:block sec:authorize="isAuthenticated()">
+                <textarea name="content" class="form-control" rows="4" required></textarea>
+                <input type="submit" value="등록" class="btn btn-primary mx-2">
+            </th:block>
+            <th:block sec:authorize="isAnonymous()">
+                <textarea name="content" class="form-control" rows="4" disabled></textarea>
+                <input type="submit" value="등록" class="btn btn-primary mx-2" disabled >
+            </th:block>
         </div>
     </form>
 </div>

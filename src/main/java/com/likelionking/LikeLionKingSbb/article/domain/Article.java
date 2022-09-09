@@ -2,6 +2,7 @@ package com.likelionking.LikeLionKingSbb.article.domain;
 
 import com.likelionking.LikeLionKingSbb.comment.domain.Comment;
 import com.likelionking.LikeLionKingSbb.common.BaseEntity;
+import com.likelionking.LikeLionKingSbb.user.domain.SiteUser;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -24,6 +25,9 @@ public class Article extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @ManyToOne
+    private SiteUser author;    // 작성자
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> commentList;
