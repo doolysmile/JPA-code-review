@@ -1,5 +1,6 @@
 package com.likelionking.LikeLionKingSbb.article.domain;
 
+import com.likelionking.LikeLionKingSbb.article.dto.ArticleDto;
 import com.likelionking.LikeLionKingSbb.comment.domain.Comment;
 import com.likelionking.LikeLionKingSbb.common.BaseEntity;
 import com.likelionking.LikeLionKingSbb.user.domain.SiteUser;
@@ -31,4 +32,11 @@ public class Article extends BaseEntity {
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> commentList;
+
+    public Article modify(ArticleDto articleDto) {
+        this.setTitle(articleDto.getTitle());
+        this.setContent(articleDto.getContent());
+
+        return this;
+    }
 }

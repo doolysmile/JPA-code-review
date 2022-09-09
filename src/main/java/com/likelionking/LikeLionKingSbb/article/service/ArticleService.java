@@ -46,4 +46,12 @@ public class ArticleService {
 
         return saveArticle.getId();
     }
+
+    public void modify(Article article, ArticleDto articleDto) {
+        article.modify(articleDto);
+//        article.setTitle(articleDto.getTitle());
+//        article.setContent(articleDto.getContent());
+
+        articleRepository.save(article);
+    }
 }
