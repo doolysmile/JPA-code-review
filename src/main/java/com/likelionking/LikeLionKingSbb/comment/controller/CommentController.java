@@ -85,4 +85,18 @@ public class CommentController {
 
         return "redirect:/article/detail/%d".formatted(comment.getArticle().getId());
     }
+
+    // 댓글 삭제
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{comment_id}")
+    public String delete(@PathVariable("comment_id") Long commentId, Principal principal) {
+        Comment comment = commentService.findById(commentId);
+        if (!comment.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+
+        commentService.delete(comment);
+
+        return "redirect:/article/detail/%d".formatted(comment.getArticle().getId());
+    }
 }
