@@ -16,6 +16,10 @@
         <span style="font-size: 15px" class="badge rounded-pill bg-light text-dark"
               th:if="${article.author != null}"
               th:text="|글쓴이 : ${article.author.username}|"></span>
+        <a onclick="if(!confirm('해당 게시글을 추천하시겠습니까?')) return false;"
+           th:href="@{|/article/like/${article.id}|}" class="recommend btn btn-sm btn-outline-secondary">추천
+            <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.articleLikeList)}"></span>
+        </a>
     </div>
     <div class="card mb-5">
         <div class="card-body">

@@ -1,5 +1,6 @@
 package com.likelionking.LikeLionKingSbb.article.service;
 
+import com.likelionking.LikeLionKingSbb.ArticleLike.domain.ArticleLike;
 import com.likelionking.LikeLionKingSbb.article.domain.Article;
 import com.likelionking.LikeLionKingSbb.article.dto.ArticleDto;
 import com.likelionking.LikeLionKingSbb.article.repository.ArticleRepository;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +60,16 @@ public class ArticleService {
 
     public void delete(Article article) {
         articleRepository.delete(article);
+    }
+
+    // TODO: Transactional 붙여야 add 반영됨!
+    @Transactional
+    public void like(Article article, SiteUser siteUser) {
+        ArticleLike articleLike = ArticleLike.builder()
+                .article(article)
+                .voter(siteUser)
+                .build();
+
+        article.getArticleLikeList().add(articleLike);
     }
 }

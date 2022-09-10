@@ -121,4 +121,18 @@ public class ArticleController {
 
         return "redirect:/article/list";
     }
+
+    // 게시글 좋아요
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/like/{article_id}")
+    public String like(@PathVariable("article_id") Long articleId, Principal principal) {
+        Article article = articleService.findById(articleId);
+        SiteUser loginUser = userService.findByUsername(principal.getName());
+
+        // TODO: 중복 검사
+
+        articleService.like(article, loginUser);
+
+        return "redirect:/article/detail/%d".formatted(articleId);
+    }
 }
