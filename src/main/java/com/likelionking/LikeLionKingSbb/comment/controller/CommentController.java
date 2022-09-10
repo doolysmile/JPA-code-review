@@ -99,4 +99,18 @@ public class CommentController {
 
         return "redirect:/article/detail/%d".formatted(comment.getArticle().getId());
     }
+
+    // 댓글 좋아요
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/like/{comment_id}")
+    public String like(@PathVariable("comment_id") Long commentId, Principal principal) {
+        Comment comment = commentService.findById(commentId);
+        SiteUser loginUser = userService.findByUsername(principal.getName());
+
+        // TODO: 중복 검사
+
+        commentService.like(comment, loginUser);
+
+        return "redirect:/article/detail/%d".formatted(comment.getArticle().getId());
+    }
 }

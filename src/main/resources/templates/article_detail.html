@@ -37,6 +37,11 @@
                 <span class="badge bg-light text-dark" th:text="${#temporals.format(comment.createdAt, 'yyyy.MM.dd hh:mm')}"></span>
             </div>
             <div th:text="${comment.content}"></div>
+
+            <a onclick="if(!confirm('해당 댓글을 추천하시겠습니까?')) return false;"
+               th:href="@{|/comment/like/${comment.id}|}" class="recommend btn btn-sm btn-outline-secondary">추천
+                <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.commentLikeSet)}"></span>
+            </a>
             <!--댓글 작성자만 수정, 삭제 버튼 보이도록-->
             <div class="d-flex justify-content-end"
                  sec:authorize="isAuthenticated()"
