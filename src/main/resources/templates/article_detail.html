@@ -33,6 +33,14 @@
                 <span class="badge bg-light text-dark" th:text="${#temporals.format(comment.createdAt, 'yyyy.MM.dd hh:mm')}"></span>
             </div>
             <div th:text="${comment.content}"></div>
+            <!--댓글 작성자만 수정, 삭제 버튼 보이도록-->
+            <div class="d-flex justify-content-end"
+                 sec:authorize="isAuthenticated()"
+                 th:if="${comment.author != null and #strings.equals(#authentication.getPrincipal().getUsername(), comment.author.username)}">
+                <a th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-primary mx-1">수정</a>
+                <a onclick="if(!confirm('해당 게시글을 삭제하시겠습니까?')) return false;"
+                   th:href="@{|/comment/delete/${comment.id}|}" class="btn btn-sm btn-outline-primary mx-1">삭제</a>
+            </div>
         </div>
     </div>
 
