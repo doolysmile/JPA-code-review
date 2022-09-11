@@ -1,6 +1,9 @@
 package com.likelionking.sbbstudy.domain.member.controller;
 
+import com.likelionking.sbbstudy.domain.member.dto.KaKaoUserInto;
+import com.likelionking.sbbstudy.domain.member.dto.MemberDto;
 import com.likelionking.sbbstudy.domain.member.entity.Member;
+import com.likelionking.sbbstudy.domain.member.exception.MemberNotFoundExceoption;
 import com.likelionking.sbbstudy.domain.member.service.KaKaoService;
 import com.likelionking.sbbstudy.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -67,13 +70,18 @@ public class MemberController {
 
         System.out.println("code = " + code);
         String access_token = kaKaoService.getToken(code);
-        Map<String, Object> userInfo = kaKaoService.getUserInfo(access_token);
-        Member member = Member.builder()
-                .nickname(userInfo.get("nickname").toString())
-                .email(userInfo.get("email").toString())
-                .build();
+        KaKaoUserInto userInfo = kaKaoService.getUserInfo(access_token);
+        Member member = null;
 
-        memberService.create(member);
+
+        try {
+            member = memberService.find(userInfo.getEmail());
+
+        }catch (MemberNotFoundExceoption e){
+            member = memberService.create(userInfo);
+        }
+
+        kaKaoService.kakaoLogin(member);
 
         //ci는 비즈니스 전환후 검수신청 -> 허락받아야 수집 가능
 //        return "home";

@@ -5,10 +5,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.likelionking.sbbstudy.domain.member.dto.KaKaoUserInto;
+import com.likelionking.sbbstudy.domain.member.entity.Member;
 import org.aspectj.apache.bcel.classfile.annotation.NameValuePair;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -17,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.http.HttpClient;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +87,7 @@ public class KaKaoService {
     }
 
 
-    public Map<String, Object> getUserInfo(String access_token) throws IOException {
+    public KaKaoUserInto getUserInfo(String access_token) throws IOException {
         String host = "https://kapi.kakao.com/v2/user/me";
         Map<String, Object> result = new HashMap<>();
         try {
@@ -134,7 +142,18 @@ public class KaKaoService {
             e.printStackTrace();
         }
 
-        return result;
+        return KaKaoUserInto.builder()
+                .id(Long.parseLong(result.get("id").toString()))
+                .nickname(result.get("nickname").toString())
+                .email(result.get("email").toString())
+                .build();
+    }
+
+    public void kakaoLogin(Member member){
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        User user = new User(member.getEmail(), member.getPassword(), authorities);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
     public void kakaoLogout(String access_Token){
