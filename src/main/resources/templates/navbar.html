@@ -13,8 +13,8 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/oauth}">로그인1</a>
-                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/oauth}">로그아웃1</a>
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/oauth}">로그인</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{|https://kauth.kakao.com/oauth/logout?client_id=3327cd22ef6585c38612b166ce59d9c6&logout_redirect_uri=http://localhost:8080/member/logout|}">로그아웃</a>
                 </li>
             </ul>
         </div>

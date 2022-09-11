@@ -60,13 +60,14 @@ public class MemberController {
         kaKaoService.kakaoLogout((String)session.getAttribute("access_Token"));
         session.removeAttribute("access_Token");
         session.removeAttribute("userId");
-        return "index";
+        session.invalidate();
+        return "redirect:/";
     }
 
 
 
     @GetMapping("/kakao")
-    public String kakaoCallback(@RequestParam String code, Model model) throws IOException {
+    public String kakaoCallback(@RequestParam String code, Model model, HttpSession session) throws IOException {
 
         System.out.println("code = " + code);
         String access_token = kaKaoService.getToken(code);
@@ -82,6 +83,7 @@ public class MemberController {
         }
 
         kaKaoService.kakaoLogin(member);
+        session.setAttribute("access_Token", access_token);
 
         //ci는 비즈니스 전환후 검수신청 -> 허락받아야 수집 가능
 //        return "home";

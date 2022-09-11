@@ -177,7 +177,6 @@ public class KaKaoService {
             }
             System.out.println(result);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
