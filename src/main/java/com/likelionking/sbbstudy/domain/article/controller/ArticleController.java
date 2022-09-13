@@ -4,7 +4,10 @@ package com.likelionking.sbbstudy.domain.article.controller;
 import com.likelionking.sbbstudy.domain.article.entity.Article;
 import com.likelionking.sbbstudy.domain.article.dto.ArticleForm;
 import com.likelionking.sbbstudy.domain.article.service.ArticleService;
+import com.likelionking.sbbstudy.domain.member.entity.Member;
+import com.likelionking.sbbstudy.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,8 +28,11 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class ArticleController {
 
+    @Autowired
     private final ArticleService articleService;
 
+    @Autowired
+    private final MemberService memberService;
 
     /**
      * 게시물 폼 이동
@@ -41,11 +47,19 @@ public class ArticleController {
      */
     @PostMapping("/write")
     public String write(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal) {
+
+        String memberEmail = null;
+        Member member = null;
         if (bindingResult.hasErrors()) {
             return "article_form";
         }
-        System.out.println("principal = " + principal.getName());
-        Long id = articleService.write(articleForm);
+
+        // 로그인이 된 경우
+        if(principal != null && principal.getName() != null){
+            member = memberService.find(memberEmail);
+        }
+
+        Long id = articleService.write(articleForm, member);
         return "redirect:/article/detail/%d".formatted(id);
     }
 

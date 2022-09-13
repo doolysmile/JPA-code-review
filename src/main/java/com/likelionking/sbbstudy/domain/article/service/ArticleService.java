@@ -3,6 +3,7 @@ package com.likelionking.sbbstudy.domain.article.service;
 import com.likelionking.sbbstudy.domain.article.entity.Article;
 import com.likelionking.sbbstudy.domain.article.dto.ArticleForm;
 import com.likelionking.sbbstudy.domain.article.repository.ArticleRepository;
+import com.likelionking.sbbstudy.domain.member.entity.Member;
 import com.likelionking.sbbstudy.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,8 +20,9 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
 
 
-    public Long write(ArticleForm articleForm) {
+    public Long write(ArticleForm articleForm, Member member) {
         Article article = ArticleForm.toEntity(articleForm);
+        article.setMember(member);
         Article save = articleRepository.save(article);
         return save.getId();
     }

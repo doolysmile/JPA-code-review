@@ -6,6 +6,7 @@ import com.likelionking.sbbstudy.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 @SuperBuilder // 상속 받고 있으면 superBuilder 사용
 @NoArgsConstructor

@@ -18,7 +18,7 @@ class ArticleServiceTest {
             String content = "내용";
             ArticleForm articleForm = new ArticleForm(title, content);
 
-            articleService.write(articleForm);
+//            articleService.write(articleForm);
         }
     }
 
