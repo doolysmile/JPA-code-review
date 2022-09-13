@@ -1,11 +1,13 @@
 package com.example.LionKingJPA.domain.article.entity;
 
 import com.example.LionKingJPA.domain.comment.entity.Comment;
+import com.example.LionKingJPA.domain.user.entity.SiteUser;
 import com.example.LionKingJPA.global.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -24,4 +26,7 @@ public class Article extends BaseEntity {
 
     @OneToMany(mappedBy = "article")
     private List<Comment> commentList;
+
+    @ManyToOne
+    private SiteUser siteUser;
 }

@@ -3,6 +3,7 @@ package com.example.LionKingJPA.domain.article.service;
 import com.example.LionKingJPA.domain.article.dto.ArticleDto;
 import com.example.LionKingJPA.domain.article.entity.Article;
 import com.example.LionKingJPA.domain.article.repository.ArticleRepository;
+import com.example.LionKingJPA.domain.user.entity.SiteUser;
 import com.example.LionKingJPA.global.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,8 +22,8 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-    public Long create(ArticleDto articleDto){
-        return articleRepository.save(ArticleDto.toEntity(articleDto)).getId();
+    public Long create(ArticleDto articleDto, SiteUser loginUser){
+        return articleRepository.save(ArticleDto.toEntity(articleDto, loginUser)).getId();
     }
 
     public Article findById(Long id){

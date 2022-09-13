@@ -1,6 +1,7 @@
 package com.example.LionKingJPA.domain.comment.entity;
 
 import com.example.LionKingJPA.domain.article.entity.Article;
+import com.example.LionKingJPA.domain.user.entity.SiteUser;
 import com.example.LionKingJPA.global.common.BaseEntity;
 import lombok.*;
 
@@ -21,4 +22,7 @@ public class Comment extends BaseEntity {
 
     @ManyToOne
     private Article article;
+
+    @ManyToOne
+    private SiteUser siteUser;
 }

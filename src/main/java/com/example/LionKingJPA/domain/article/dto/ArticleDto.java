@@ -1,6 +1,7 @@
 package com.example.LionKingJPA.domain.article.dto;
 
 import com.example.LionKingJPA.domain.article.entity.Article;
+import com.example.LionKingJPA.domain.user.entity.SiteUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,12 @@ public class ArticleDto {
     @NotEmpty(message = "내용은 필수항목입니다.")
     private String content;
 
-    public static Article toEntity(ArticleDto articleDto){
+
+    public static Article toEntity(ArticleDto articleDto, SiteUser loginUser){
         return Article.builder()
                 .title(articleDto.getTitle())
                 .content(articleDto.getContent())
+                .siteUser(loginUser)
                 .build();
     }
 }
