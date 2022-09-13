@@ -4,6 +4,7 @@ import com.example.LionKingJPA.domain.article.entity.Article;
 import com.example.LionKingJPA.domain.article.repository.ArticleRepository;
 import com.example.LionKingJPA.domain.comment.dto.CommentDto;
 import com.example.LionKingJPA.domain.comment.repository.CommentRepository;
+import com.example.LionKingJPA.domain.user.entity.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,9 @@ public class CommentService {
 
     private final ArticleRepository articleRepository;
 
-    public Long create(CommentDto commentDto, Long articleId){
+    public Long create(CommentDto commentDto, Long articleId, SiteUser siteUser){
         Article findArticle = articleRepository.findById(articleId).orElse(null);
-        return commentRepository.save(CommentDto.toEntity(commentDto, findArticle)).getId();
+        return commentRepository.save(CommentDto.toEntity(commentDto, findArticle, siteUser)).getId();
     }
 
 }

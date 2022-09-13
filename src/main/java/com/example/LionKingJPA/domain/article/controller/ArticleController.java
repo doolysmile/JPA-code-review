@@ -36,7 +36,7 @@ public class ArticleController {
         if (bindingResult.hasErrors()) {
             return "article/article_form";
         }
-
+//        System.out.println("tttttttttt" + principal.getName());
         articleService.create(articleDto, userService.getUserByEmail(principal.getName()));
         return "redirect:/usr/article/list";
     }

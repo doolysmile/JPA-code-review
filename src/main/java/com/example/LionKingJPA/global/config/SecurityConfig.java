@@ -22,7 +22,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/usr/article/write", "/usr/comment/write/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                     .formLogin()
                     .loginPage("/user/login")    // url 매핑
