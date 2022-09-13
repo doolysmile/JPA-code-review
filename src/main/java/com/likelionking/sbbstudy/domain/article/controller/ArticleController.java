@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/article")
@@ -39,10 +40,11 @@ public class ArticleController {
      * 게시물 등록 (Post)
      */
     @PostMapping("/write")
-    public String write(@Valid ArticleForm articleForm, BindingResult bindingResult) {
+    public String write(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
             return "article_form";
         }
+        System.out.println("principal = " + principal.getName());
         Long id = articleService.write(articleForm);
         return "redirect:/article/detail/%d".formatted(id);
     }

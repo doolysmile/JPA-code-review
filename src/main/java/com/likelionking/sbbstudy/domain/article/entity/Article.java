@@ -2,6 +2,7 @@ package com.likelionking.sbbstudy.domain.article.entity;
 
 import com.likelionking.sbbstudy.domain.base.BaseTimeEntity;
 import com.likelionking.sbbstudy.domain.comment.entity.Comment;
+import com.likelionking.sbbstudy.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,9 @@ public class Article extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "article", cascade= CascadeType.ALL)
     private List<Comment> commentList = new ArrayList<>();
+
+    @ManyToOne
+    private Member member;
 
 
     public void addComment(Comment comment){

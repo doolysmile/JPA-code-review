@@ -1,5 +1,7 @@
 package com.likelionking.sbbstudy.domain.member.entity;
 
+import com.likelionking.sbbstudy.domain.article.entity.Article;
+import com.likelionking.sbbstudy.domain.comment.entity.Comment;
 import com.likelionking.sbbstudy.domain.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -28,6 +32,12 @@ public class Member {
 
     @Column(length = 255, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "member", cascade= CascadeType.ALL)
+    private List<Article> arrayList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade= CascadeType.ALL)
+    private List<Comment> commentList = new ArrayList<>();
 
 
 }
