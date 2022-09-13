@@ -40,4 +40,5 @@ public class Member {
     private List<Comment> commentList = new ArrayList<>();
 
 
+
 }

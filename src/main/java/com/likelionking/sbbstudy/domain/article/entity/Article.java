@@ -42,4 +42,14 @@ public class Article extends BaseTimeEntity {
         commentList.add(comment);
     }
 
+    public void setMember(Member member){
+
+        // 작성자가 변경될 일은 없지만 안전하게 하기 위함.
+        if(this.member != null){
+            this.member.getArrayList().remove(this);
+        }
+        this.member = member;
+        member.getArrayList().add(this);
+    }
+
 }
