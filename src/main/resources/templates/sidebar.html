@@ -1,13 +1,13 @@
 <html lang="ko"
       xmlns:th="http://thymeleaf.org"
->
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <nav th:fragment="sidebarFragment" class="main-menu">
     <ul>
         <li>
             <a th:href="@{/}">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="nav-text">
-                                home
+                                Home
                             </span>
             </a>
         </li>
@@ -52,7 +52,7 @@
             <a href="https://github.com/woominsik">
                 <i class="fa fa-github fa-2x"></i>
                 <span class="nav-text">
-                                github
+                                Github
                     </span>
             </a>
         </li>
@@ -61,7 +61,22 @@
 
     <ul class="logout">
         <li>
-            <a href="#">
+            <a th:href="@{/member/create}">
+                <i class="fa fa-user-circle fa-2x"></i>
+                <span class="nav-text">
+                                SignUp
+                </span>
+            </a>
+        </li>
+
+        <li>
+            <a sec:authorize="isAnonymous()" th:href="@{/member/login}">
+                <i class="fa fa-power-off fa-2x"></i>
+                <span class="nav-text">
+                                Login
+                </span>
+            </a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">
                 <i class="fa fa-power-off fa-2x"></i>
                 <span class="nav-text">
                                 Logout

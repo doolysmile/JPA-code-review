@@ -28,6 +28,7 @@ public class ArticleRepositoryTests {
 
         Article found = articleRepository.findById(1L).get();
 
+
         assertThat(found.getContent()).isEqualTo(article.getContent());
         assertThat(found.getTitle()).isEqualTo(article.getTitle());
     }

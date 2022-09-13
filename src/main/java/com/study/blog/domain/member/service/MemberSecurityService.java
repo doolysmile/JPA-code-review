@@ -1,0 +1,49 @@
+package com.study.blog.domain.member.service;
+
+import com.study.blog.domain.member.domain.Member;
+import com.study.blog.domain.member.domain.MemberRole;
+import com.study.blog.domain.member.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@RequiredArgsConstructor
+@Service
+public class MemberSecurityService implements UserDetailsService {
+
+    private final MemberRepository memberRepository;
+
+    // 시큐리티가 특정 회원의 username을 받았을 때
+    // 그 username에 해당하는 회원정보를 얻는 수단
+    @Override
+    public UserDetails loadUserByUsername(String memberName) throws UsernameNotFoundException {
+
+        System.out.println("asd "+memberName);
+        if(memberRepository.findByMemberName(memberName).isEmpty()){
+            System.out.println("asdwqrfafa");
+        }
+        Member member = memberRepository.findByMemberName(memberName).orElseThrow(() ->
+                new UsernameNotFoundException("사용자를 찾을수 없습니다.")
+        );
+
+        System.out.println("asd "+member.getMemberName());
+        // 권한들을 담을 빈 리스트를 만든다.
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        if ("admin".equals(memberName)) {
+            authorities.add(new SimpleGrantedAuthority(MemberRole.ADMIN.getValue()));
+        } else {
+            authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
+        }
+
+        return new User(member.getMemberName(), member.getPassword(), authorities);
+    }
+}

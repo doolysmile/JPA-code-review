@@ -1,6 +1,7 @@
 package com.study.blog.domain.article.domain;
 
 import com.study.blog.domain.comment.domain.Comment;
+import com.study.blog.domain.member.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,9 @@ public class Article {
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> commentList;
+
+    @ManyToOne
+    private Member author;
 
     public void addComment(Comment comment) {
         comment.setArticle(this);
