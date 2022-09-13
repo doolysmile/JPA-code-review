@@ -56,6 +56,7 @@ public class ArticleController {
 
         // 로그인이 된 경우
         if(principal != null && principal.getName() != null){
+            memberEmail = principal.getName();
             member = memberService.find(memberEmail);
         }
 

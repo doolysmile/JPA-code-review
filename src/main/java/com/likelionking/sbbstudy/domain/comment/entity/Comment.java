@@ -34,9 +34,20 @@ public class Comment extends BaseTimeEntity {
     private Member member;
 
 
-    public void confirmArticle(Article article){
+    public void setArticle(Article article){
+        if(this.article != null)
+            this.article.getCommentList().remove(this);
+
         this.article = article;
         article.addComment(this);
+    }
+
+    public void setMember(Member member){
+        if(this.member != null)
+            this.member.getCommentList().remove(this);
+
+        this.member = member;
+        member.addComment(this);
     }
 
 

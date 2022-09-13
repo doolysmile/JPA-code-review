@@ -40,5 +40,7 @@ public class Member {
     private List<Comment> commentList = new ArrayList<>();
 
 
-
+    public void addComment(Comment comment) {
+        this.commentList.add(comment);
+    }
 }
