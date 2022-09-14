@@ -14,6 +14,12 @@
           <div th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
         </div>
       </div>
+      <div class="my-3">
+        <a th:href="@{|/usr/article/modify/${article.id}|}" class="btn btn-sm btn-outline-secondary"
+           sec:authorize="isAuthenticated()"
+           th:if="${article.siteUser != null and #authentication.getPrincipal().getUsername == article.siteUser.email}"
+           th:text="수정"></a>
+      </div>
     </div>
   </div>
 

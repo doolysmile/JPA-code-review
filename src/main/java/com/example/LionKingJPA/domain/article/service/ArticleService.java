@@ -26,6 +26,14 @@ public class ArticleService {
         return articleRepository.save(ArticleDto.toEntity(articleDto, loginUser)).getId();
     }
 
+    public void modify(Long id, ArticleDto articleDto){
+        Article findArticle = findById(id);
+        findArticle.setTitle(articleDto.getTitle());
+        findArticle.setContent(articleDto.getContent());
+
+        articleRepository.save(findArticle);
+    }
+
     public Article findById(Long id){
         Optional<Article> article = articleRepository.findById(id);
         if(article.isPresent()){
@@ -41,5 +49,6 @@ public class ArticleService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return articleRepository.findAll(pageable);
     }
+
 
 }
