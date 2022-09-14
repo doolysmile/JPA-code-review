@@ -19,6 +19,10 @@
            sec:authorize="isAuthenticated()"
            th:if="${article.siteUser != null and #authentication.getPrincipal().getUsername == article.siteUser.email}"
            th:text="수정"></a>
+        <a href="javascript:void(0);" th:data-uri="@{|/usr/article/delete/${article.id}|}"
+           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+           th:if="${article.siteUser != null and #authentication.getPrincipal().getUsername() == article.siteUser.email}"
+           th:text="삭제"></a>
       </div>
     </div>
   </div>
@@ -51,6 +55,15 @@
 
 </div>
 
-
+<script layout:fragment="script" type='text/javascript'>
+  const delete_elements = document.getElementsByClassName("delete");
+  Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+      if(confirm("정말로 삭제하시겠습니까?")) {
+        location.href = this.dataset.uri;
+      };
+    });
+  });
+</script>
 
 </html>

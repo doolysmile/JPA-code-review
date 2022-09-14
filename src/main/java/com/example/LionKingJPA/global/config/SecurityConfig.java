@@ -22,7 +22,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/usr/article/write", "/usr/comment/write/**").authenticated()
+                .antMatchers("/usr/article/write", "/usr/comment/write/**", "/usr/article/modify/**", "/usr/article/delete/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                     .formLogin()

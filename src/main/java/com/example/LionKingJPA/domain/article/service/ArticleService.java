@@ -26,14 +26,6 @@ public class ArticleService {
         return articleRepository.save(ArticleDto.toEntity(articleDto, loginUser)).getId();
     }
 
-    public void modify(Long id, ArticleDto articleDto){
-        Article findArticle = findById(id);
-        findArticle.setTitle(articleDto.getTitle());
-        findArticle.setContent(articleDto.getContent());
-
-        articleRepository.save(findArticle);
-    }
-
     public Article findById(Long id){
         Optional<Article> article = articleRepository.findById(id);
         if(article.isPresent()){
@@ -50,5 +42,16 @@ public class ArticleService {
         return articleRepository.findAll(pageable);
     }
 
+    public void modify(Long id, ArticleDto articleDto){
+        Article findArticle = findById(id);
+        findArticle.setTitle(articleDto.getTitle());
+        findArticle.setContent(articleDto.getContent());
+
+        articleRepository.save(findArticle);
+    }
+
+    public void delete(Long id){
+        articleRepository.delete(findById(id));
+    }
 
 }

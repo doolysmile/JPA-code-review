@@ -73,6 +73,16 @@ public class ArticleController {
         return "article/article_detail";
     }
 
+    @GetMapping("/delete/{id}")
+    public String articleDelete(Principal principal, @PathVariable("id") Long id){
+        Article findArticle = articleService.findById(id);
+        if(!findArticle.getSiteUser().getEmail().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        articleService.delete(id);
+        return "redirect:/";
+    }
+
     @GetMapping("/list")
     public String articleList(Model model, @RequestParam(defaultValue = "0") int page){
 
