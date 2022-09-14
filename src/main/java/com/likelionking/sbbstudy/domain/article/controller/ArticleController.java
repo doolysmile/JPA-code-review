@@ -1,11 +1,17 @@
 package com.likelionking.sbbstudy.domain.article.controller;
 
 
-import com.likelionking.sbbstudy.domain.article.domain.Article;
-import com.likelionking.sbbstudy.domain.article.domain.ArticleForm;
+import com.likelionking.sbbstudy.domain.article.entity.Article;
+import com.likelionking.sbbstudy.domain.article.dto.ArticleForm;
 import com.likelionking.sbbstudy.domain.article.service.ArticleService;
+import com.likelionking.sbbstudy.domain.member.entity.Member;
+import com.likelionking.sbbstudy.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,15 +21,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/article")
 @RequiredArgsConstructor
 public class ArticleController {
 
+    @Autowired
     private final ArticleService articleService;
 
+    @Autowired
+    private final MemberService memberService;
 
     /**
      * 게시물 폼 이동
@@ -37,11 +46,21 @@ public class ArticleController {
      * 게시물 등록 (Post)
      */
     @PostMapping("/write")
-    public String write(@Valid ArticleForm articleForm, BindingResult bindingResult) {
+    public String write(@Valid ArticleForm articleForm, BindingResult bindingResult, Principal principal) {
+
+        String memberEmail = null;
+        Member member = null;
         if (bindingResult.hasErrors()) {
             return "article_form";
         }
-        Long id = articleService.write(articleForm);
+
+        // 로그인이 된 경우
+        if(principal != null && principal.getName() != null){
+            memberEmail = principal.getName();
+            member = memberService.find(memberEmail);
+        }
+
+        Long id = articleService.write(articleForm, member);
         return "redirect:/article/detail/%d".formatted(id);
     }
 
@@ -49,9 +68,12 @@ public class ArticleController {
      * 게시글 리스트 조회
      */
     @GetMapping("/list")
-    public String getList(Model model) {
-        List<Article> list = articleService.getList();
-        model.addAttribute("articleList", list);
+    //Todo
+    // id -> updateAt으로 변경
+    public String getList(Model model, @PageableDefault(sort = "id", size = 20, direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<Article> list = articleService.getList(pageable);
+        model.addAttribute("paging", list);
+
         return "article_list";
     }
 
@@ -59,7 +81,7 @@ public class ArticleController {
      * 게시글 조회
      */
     @GetMapping("/detail/{article_id}")
-    public String detail(Model model, @PathVariable("article_id") Long id){
+    public String detail(Model model, @PathVariable("article_id") Long id, ArticleForm articleForm){
         Article article = articleService.getArticle(id);
         model.addAttribute("article", article);
         return "article_detail";

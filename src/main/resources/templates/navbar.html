@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://thymeleaf.org"
+>
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/static">SBB</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/oauth}">로그인</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{|https://kauth.kakao.com/oauth/logout?client_id=3327cd22ef6585c38612b166ce59d9c6&logout_redirect_uri=http://localhost:8080/member/logout|}">로그아웃</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

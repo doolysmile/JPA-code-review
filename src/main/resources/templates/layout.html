@@ -13,19 +13,22 @@
   <!-- sbb CSS -->
   <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
   <title>Hello, sbb!</title>
+  <!-- 제이쿼리 불러오기 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body style="min-height:100vh;" class="d-flex flex-column">
 
 <header>
+
   <nav th:replace="navbar :: navbarFragment"></nav>
 
   <div class="container py-3 d-flex">
-    <a th:href="@{/}" class="mr-auto">메인 페이지</a>
+    <a th:href="@{/article/list}" class="mr-auto">메인 페이지</a>
 
     <div class="flex-grow-1"></div>
 
     <div>
-      <a th:href="@{/question/list}">질문 리스트</a>
+      <a th:href="@{/article/list}">질문 리스트</a>
     </div>
   </div>
 </header>
@@ -35,12 +38,13 @@
   <th:block layout:fragment="content"></th:block>
 </main>
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
-
 <footer class="bg-dark text-light">
   <div class="container py-3 d-flex justify-content-center">
     Copyright all rights reserved
   </div>
 </footer>
 <th:block layout:fragment="script"></th:block>
+
+
 </body>
 </html>

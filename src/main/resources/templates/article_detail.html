@@ -1,5 +1,8 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
-<<div class="container my-3">
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://www.thymeleaf.org"
+        layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
     <!-- 질문 -->
     <h2 class="border-bottom py-2" th:text="${article.title}"></h2>
     <div class="card my-3">
@@ -29,7 +32,8 @@
     </div>
     <!-- 답변 반복 끝  -->
     <!-- 답변 작성 -->
-    <form th:action="@{|/comment/write/${article.id}|}" method="post" class="my-3">
+    <form th:action="@{|/comment/write/${article.id}|}" th:object="${articleForm}" method="post" class="my-3">
+        <div th:replace="form_errors :: formErrorsFragment"></div>
         <textarea name="content" id="content" rows="10" class="form-control"></textarea>
         <input type="submit" value="답변등록" class="btn btn-primary my-2">
     </form>
