@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
-public class CreateAnswer {
+public class Create {
     @Getter
     @Setter
     public static class RequestDto{
@@ -20,7 +20,7 @@ public class CreateAnswer {
             return Answer.builder()
                     .id(id)
                     .content(content)
-                    .createDateTime(LocalDateTime.now())
+                    .createdAt(LocalDateTime.now())
                     .question(question)
                     .build();
         }
